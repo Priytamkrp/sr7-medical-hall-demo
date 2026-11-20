@@ -3,347 +3,479 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SR7 Medical Hall | 24 Hours Pharmacy in Dumka</title>
+  <title>SR7 Medical Hall | Smart Pharmacy Desk — Dumka</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
-    body { background: #f8fafc; color: #0f172a; line-height: 1.55; }
+    :root {
+      --bg: #060b14;
+      --surface: #0e1626;
+      --card: #152238;
+      --border: rgba(148, 163, 184, 0.18);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --blue: #2563eb;
+      --green: #22c55e;
+      --amber: #facc15;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, Arial, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.55; padding-bottom: 44px; }
 
     /* Top Bar */
     .topbar {
-      background: #ffffff;
-      border-bottom: 1px solid #e2e8f0;
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(6, 11, 20, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
     }
-    .brand-left { display: flex; align-items: center; gap: 11px; }
-    .logo-box {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #0284c7, #0ea5e9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 10px rgba(2, 132, 199, 0.25);
-      flex-shrink: 0;
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .logo {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--blue), var(--accent));
+      display: grid; place-items: center; font-weight: 900; font-size: 18px; color: #fff; flex-shrink: 0;
     }
-    .brand-name { font-size: 15px; font-weight: 800; color: #0f172a; letter-spacing: 0.3px; }
-    .brand-sub { font-size: 11px; color: #64748b; }
-    .open-badge {
-      background: #ecfdf5;
-      color: #047857;
-      border: 1px solid #a7f3d0;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 5px 10px;
-      border-radius: 999px;
-      white-space: nowrap;
+    .brand-title { font-weight: 800; font-size: 14.5px; }
+    .brand-sub { font-size: 11px; color: var(--muted); }
+    .badge-24 {
+      background: rgba(34, 197, 94, 0.14); color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      padding: 5px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; white-space: nowrap;
     }
+
+    .wrap { max-width: 900px; margin: 0 auto; padding: 20px 14px; }
 
     /* Hero */
     .hero {
-      background: linear-gradient(135deg, #0369a1 0%, #1d4ed8 100%);
-      color: #ffffff;
-      padding: 36px 20px 42px;
-      text-align: center;
+      background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.35), transparent 60%), var(--surface);
+      border: 1px solid var(--border); border-radius: 18px; padding: 24px 18px; margin-bottom: 20px;
     }
-    .hero-pill {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      color: #f0f9ff;
-      font-size: 11.5px;
-      font-weight: 700;
-      padding: 4px 12px;
-      border-radius: 999px;
-      margin-bottom: 12px;
+    .hero-tag {
+      display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+      color: var(--accent); background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.28); padding: 4px 10px; border-radius: 999px; margin-bottom: 10px;
     }
-    .hero h1 { font-size: 27px; font-weight: 800; margin-bottom: 10px; }
-    .hero p.tagline {
-      color: #e0f2fe;
-      font-size: 14px;
-      max-width: 520px;
-      margin: 0 auto 22px;
+    .hero h1 { font-size: clamp(22px, 5vw, 32px); font-weight: 900; margin-bottom: 8px; }
+    .hero p { color: #cbd5e1; font-size: 14px; }
+
+    .quick-actions {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px; margin-top: 16px;
     }
-    .cta-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-      max-width: 480px;
-      margin: 0 auto;
+    .q-btn {
+      text-decoration: none; border: 1px solid var(--border); border-radius: 10px;
+      padding: 10px 12px; font-size: 13px; font-weight: 700; text-align: center;
+      background: var(--card); color: var(--text); cursor: pointer;
     }
+    .q-btn.primary { background: var(--green); color: #052e16; border: none; font-weight: 800; }
+    .q-btn.map { background: #ffffff; color: #0f172a; border: none; }
+
+    .stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px;
+    }
+    .stat-box {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 11px; text-align: center;
+    }
+    .stat-val { font-size: 15px; font-weight: 800; color: var(--accent); }
+    .stat-lbl { font-size: 11px; color: var(--muted); }
+
+    .sec-head { margin: 24px 0 12px; }
+    .sec-head h2 { font-size: 18px; font-weight: 800; }
+    .sec-head p { font-size: 12.5px; color: var(--muted); }
+
+    .panel {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px; margin-bottom: 18px;
+    }
+
+    /* Quick Chips */
+    .chips-label { font-size: 12px; color: var(--muted); margin-bottom: 8px; font-weight: 600; }
+    .chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+    .chip {
+      background: var(--card); border: 1px solid rgba(56, 189, 248, 0.3); color: #e0f2fe;
+      padding: 5px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; cursor: pointer;
+    }
+    .chip:hover { background: rgba(56, 189, 248, 0.16); }
+
+    .form-row { display: grid; grid-template-columns: 1fr 85px auto; gap: 9px; margin-bottom: 12px; }
+    .slot-row { display: grid; grid-template-columns: 1fr 150px auto; gap: 9px; margin-bottom: 12px; }
+    .refill-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 9px; align-items: end; }
+    @media (max-width: 600px) {
+      .form-row, .slot-row, .refill-row { grid-template-columns: 1fr; }
+    }
+
+    input, select {
+      width: 100%; padding: 10px 12px; border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.26); background: var(--card); color: var(--text); font-size: 13px;
+    }
+    label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 5px; font-weight: 600; }
+
     .btn {
-      flex: 1 1 200px;
-      text-decoration: none;
-      padding: 13px 16px;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 14px;
-      text-align: center;
-      transition: transform 0.15s ease;
+      border: none; border-radius: 10px; padding: 10px 14px; font-weight: 700; font-size: 13px;
+      cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
     }
-    .btn:active { transform: scale(0.98); }
-    .btn-whatsapp {
-      background: #16a34a;
-      color: #ffffff;
-      box-shadow: 0 6px 16px rgba(22, 163, 74, 0.32);
+    .btn-blue { background: var(--blue); color: #fff; }
+    .btn-wa { background: var(--green); color: #052e16; font-weight: 800; }
+    .btn-copy { background: var(--card); color: var(--text); border: 1px solid var(--border); }
+    .btn-del { background: transparent; color: #f87171; border: 1px solid rgba(248, 113, 113, 0.3); padding: 4px 8px; font-size: 11.5px; border-radius: 7px; cursor: pointer; }
+
+    .list-meta {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 12px; color: var(--muted); margin: 8px 0 10px; padding-top: 8px; border-top: 1px solid var(--border);
     }
-    .btn-map {
-      background: #ffffff;
-      color: #0f172a;
-      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.16);
+    .item-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .row-item {
+      display: flex; justify-content: space-between; align-items: center; gap: 10px;
+      background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 9px 12px; font-size: 13px;
+    }
+    .empty { text-align: center; color: var(--muted); font-size: 12.5px; padding: 12px 0; }
+
+    .action-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+    @media (max-width: 500px) { .action-bar { grid-template-columns: 1fr; } }
+
+    .toast {
+      margin-top: 10px; padding: 10px 12px; border-radius: 10px; font-size: 12.5px;
+      background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3); color: #e0f2fe; display: none;
     }
 
-    /* Trust Strip */
-    .trust-wrap {
-      max-width: 760px;
-      margin: -20px auto 0;
-      padding: 0 16px;
-    }
-    .trust-grid {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 14px 10px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      text-align: center;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
-    }
-    .trust-val { font-size: 15px; font-weight: 800; color: #0284c7; }
-    .trust-lbl { font-size: 11.5px; color: #475569; margin-top: 2px; }
+    /* Info & FAQ */
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+    .info-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; font-size: 13px; }
+    .info-card strong { display: block; color: var(--accent); margin-bottom: 4px; font-size: 12px; text-transform: uppercase; }
 
-    /* Container */
-    .container { max-width: 760px; margin: 0 auto; padding: 28px 16px 18px; }
-    .section-title {
-      font-size: 18px;
-      font-weight: 800;
-      color: #0f172a;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    details {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 15px; margin-bottom: 9px;
     }
-    .section-title::before {
-      content: "";
-      width: 4px;
-      height: 18px;
-      background: #0284c7;
-      border-radius: 4px;
-    }
+    summary { font-weight: 700; font-size: 13.5px; cursor: pointer; list-style: none; }
+    details p { margin-top: 7px; font-size: 12.5px; color: #cbd5e1; }
 
-    /* Categories Grid */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
-      gap: 14px;
-      margin-bottom: 26px;
+    .notice {
+      margin-top: 20px; padding: 11px 14px; border-radius: 10px;
+      background: rgba(250, 204, 21, 0.08); border: 1px solid rgba(250, 204, 21, 0.25);
+      color: #fde68a; font-size: 11.5px;
     }
-    .card {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 16px;
-      box-shadow: 0 3px 10px rgba(15, 23, 42, 0.04);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .tag {
-      display: inline-block;
-      font-size: 10.5px;
-      font-weight: 700;
-      color: #0369a1;
-      background: #e0f2fe;
-      padding: 3px 8px;
-      border-radius: 6px;
-      margin-bottom: 8px;
-      width: fit-content;
-    }
-    .card h3 { font-size: 15px; color: #0f172a; margin-bottom: 6px; }
-    .card p { font-size: 12.5px; color: #475569; margin-bottom: 12px; }
-    .card a {
-      font-size: 12.5px;
-      font-weight: 700;
-      color: #15803d;
-      text-decoration: none;
-    }
-
-    /* Info Box */
-    .info-box {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 6px 18px;
-      margin-bottom: 22px;
-      box-shadow: 0 3px 10px rgba(15, 23, 42, 0.04);
-    }
-    .info-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 11px 0;
-      border-bottom: 1px solid #f1f5f9;
-      font-size: 13.5px;
-      gap: 12px;
-    }
-    .info-row:last-child { border-bottom: none; }
-    .label { color: #64748b; font-weight: 700; }
-    .val { color: #0f172a; font-weight: 600; text-align: right; }
-
-    /* Social & Note */
-    .social-card {
-      background: #eff6ff;
-      border: 1px solid #bfdbfe;
-      border-radius: 12px;
-      padding: 15px 16px;
-      text-align: center;
-      font-size: 13.5px;
-      color: #1e3a8a;
-      margin-bottom: 16px;
-    }
-    .social-card a { color: #1d4ed8; font-weight: 800; text-decoration: none; }
-    .note {
-      font-size: 11.5px;
-      color: #64748b;
-      text-align: center;
-      margin-bottom: 14px;
-    }
-    footer {
-      text-align: center;
-      font-size: 12px;
-      color: #64748b;
-      padding: 6px 16px 26px;
-    }
+    footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 26px; }
   </style>
 </head>
 <body>
 
-  <nav class="topbar">
-    <div class="brand-left">
-      <div class="logo-box" aria-hidden="true">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <path d="M10 4H14V10H20V14H14V20H10V14H4V10H10V4Z" fill="#ffffff"/>
-        </svg>
-      </div>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">+</div>
       <div>
-        <div class="brand-name">SR7 MEDICAL HALL</div>
+        <div class="brand-title">SR7 MEDICAL HALL</div>
         <div class="brand-sub">Bypass Rd, Gilan Para, Dumka</div>
       </div>
     </div>
-    <div class="open-badge">Open 24 Hours</div>
-  </nav>
-
-  <header class="hero">
-    <div class="hero-pill">PHARMACY &bull; DUMKA</div>
-    <h1>SR7 MEDICAL HALL</h1>
-    <p class="tagline">24 Hours Pharmacy at Bypass Rd, Gilan Para, Dumka — Quick medicine inquiry & store location</p>
-    <div class="cta-group">
-      <a class="btn btn-whatsapp" href="https://wa.me/918210045180?text=Hello%20SR7%20Medical%20Hall%2C%20I%20want%20to%20check%20medicine%20availability." target="_blank">
-        Check Medicine on WhatsApp
-      </a>
-      <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=SR7+MEDICAL+HALL+Bypass+Rd+Gilan+Para+Dumka+Jharkhand+814101" target="_blank">
-        Get Store Directions
-      </a>
-    </div>
+    <div class="badge-24">OPEN 24 HOURS</div>
   </header>
 
-  <div class="trust-wrap">
-    <div class="trust-grid">
-      <div>
-        <div class="trust-val">5.0 ★</div>
-        <div class="trust-lbl">Google Rating</div>
-      </div>
-      <div>
-        <div class="trust-val">24 Hours</div>
-        <div class="trust-lbl">Round-the-Clock</div>
-      </div>
-      <div>
-        <div class="trust-val">34.9K+</div>
-        <div class="trust-lbl">Instagram Reach</div>
-      </div>
-    </div>
-  </div>
+  <main class="wrap">
+    <!-- Hero & Quick Actions -->
+    <section class="hero">
+      <span class="hero-tag">COMPLETE CUSTOMER UTILITY DESK</span>
+      <h1>SR7 Medical Hall — Smart Pharmacy Desk</h1>
+      <p>
+        ग्राहक यहाँ से अपनी आइटम लिस्ट बना सकते हैं, टाइम-स्लॉट नोट्स रख सकते हैं, रीफ़िल तारीख निकाल सकते हैं, और सीधे WhatsApp या Directions से जुड़ सकते हैं।
+      </p>
 
-  <main class="container">
-    <h2 class="section-title">Quick Store Assistance</h2>
-    <div class="grid">
-      <div class="card">
-        <div>
-          <span class="tag">MEDICINES</span>
-          <h3>Medicine Availability</h3>
-          <p>Check stock availability before visiting the store at any hour.</p>
+      <div class="quick-actions">
+        <a class="q-btn primary" href="https://wa.me/918210045180?text=Hello%20SR7%20Medical%20Hall%2C%20I%20want%20to%20enquire%20about%20medicine%20availability." target="_blank">
+          WhatsApp Inquiry
+        </a>
+        <a class="q-btn" href="tel:+918210045180">Call: 082100 45180</a>
+        <a class="q-btn map" href="https://www.google.com/maps/search/?api=1&query=SR7+MEDICAL+HALL+Bypass+Rd+Gilan+Para+Dumka+Jharkhand+814101" target="_blank">
+          Google Maps
+        </a>
+        <button class="q-btn" type="button" onclick="copyAddress()">Copy Address</button>
+      </div>
+      <div class="toast" id="addrToast"></div>
+
+      <div class="stats">
+        <div class="stat-box">
+          <div class="stat-val">24x7</div>
+          <div class="stat-lbl">Open Round-the-Clock</div>
         </div>
-        <a href="https://wa.me/918210045180?text=Hi%2C%20please%20check%20if%20this%20medicine%20is%20available." target="_blank">Enquire on WhatsApp →</a>
+        <div class="stat-box">
+          <div class="stat-val">5.0 ★</div>
+          <div class="stat-lbl">Google Rating</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">34.9K+</div>
+          <div class="stat-lbl">Instagram Reach</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature 1: Smart Medicine / Item List Builder + Chips -->
+    <div class="sec-head">
+      <h2>1. Smart Medicine & Item Inquiry List</h2>
+      <p>Quick tags पर टैप करें या खुद नाम लिखें—पूरी लिस्ट WhatsApp या Copy के लिए तैयार हो जाएगी।</p>
+    </div>
+    <section class="panel">
+      <div class="chips-label">Quick Add Essentials (1 Tap):</div>
+      <div class="chips">
+        <button class="chip" type="button" onclick="quickAdd('ORS Pack')">+ ORS Pack</button>
+        <button class="chip" type="button" onclick="quickAdd('Bandage / Gauze')">+ Bandage / Gauze</button>
+        <button class="chip" type="button" onclick="quickAdd('Thermometer')">+ Thermometer</button>
+        <button class="chip" type="button" onclick="quickAdd('Cotton Roll')">+ Cotton Roll</button>
+        <button class="chip" type="button" onclick="quickAdd('Antiseptic Liquid')">+ Antiseptic Liquid</button>
+        <button class="chip" type="button" onclick="quickAdd('BP / Sugar Strips')">+ BP / Sugar Strips</button>
       </div>
 
-      <div class="card">
-        <div>
-          <span class="tag">PRESCRIPTION</span>
-          <h3>Prescription Support</h3>
-          <p>Share prescription details directly on WhatsApp for quick help.</p>
-        </div>
-        <a href="https://wa.me/918210045180?text=Hi%2C%20I%20would%20like%20to%20share%20a%20prescription%20query." target="_blank">Send on WhatsApp →</a>
+      <div class="form-row">
+        <input type="text" id="medName" placeholder="दवाई या आइटम का नाम लिखें..." />
+        <input type="number" id="medQty" min="1" value="1" aria-label="Quantity" />
+        <button class="btn btn-blue" type="button" onclick="addMed()">+ Add</button>
       </div>
 
-      <div class="card">
-        <div>
-          <span class="tag">ESSENTIALS</span>
-          <h3>Daily Health & Care</h3>
-          <p>Routine pharmacy essentials and healthcare items at Gilan Para.</p>
-        </div>
-        <a href="https://wa.me/918210045180?text=Hi%2C%20I%20want%20to%20enquire%20about%20healthcare%20items." target="_blank">Ask on WhatsApp →</a>
+      <div class="list-meta">
+        <span id="itemSummary">Items: 0 | Total Qty: 0</span>
+        <button class="btn-del" type="button" onclick="clearMeds()">Clear All</button>
       </div>
 
-      <div class="card">
-        <div>
-          <span class="tag">LOCATION</span>
-          <h3>Bypass Rd, Dumka</h3>
-          <p>Easy road access near Gilan Para, Dumka, Jharkhand 814101.</p>
-        </div>
-        <a href="https://www.google.com/maps/search/?api=1&query=SR7+MEDICAL+HALL+Bypass+Rd+Gilan+Para+Dumka+Jharkhand+814101" target="_blank">Open Google Maps →</a>
+      <ul class="item-list" id="medList"></ul>
+
+      <div class="action-bar">
+        <button class="btn btn-wa" type="button" onclick="sendListWhatsApp()">Send List on WhatsApp</button>
+        <button class="btn btn-copy" type="button" onclick="copyListText()">Copy List Summary</button>
       </div>
+      <div class="toast" id="listToast"></div>
+    </section>
+
+    <!-- Feature 2: Time-Slot Schedule Notes (Morning / Afternoon / Evening / Night) -->
+    <div class="sec-head">
+      <h2>2. Daily Time-Slot Reminder Notes</h2>
+      <p>ग्राहक अपने हिसाब से दिन के किस समय क्या याद रखना है, उसका छोटा नोट यहाँ रख सकते हैं।</p>
+    </div>
+    <section class="panel">
+      <div class="slot-row">
+        <input type="text" id="slotNote" placeholder="नोट लिखें (e.g. Check stock / Refill note)" />
+        <select id="slotTime">
+          <option value="Morning (Subah)">Morning (Subah)</option>
+          <option value="Afternoon (Dopahar)">Afternoon (Dopahar)</option>
+          <option value="Evening (Shaam)">Evening (Shaam)</option>
+          <option value="Night (Raat)">Night (Raat)</option>
+        </select>
+        <button class="btn btn-blue" type="button" onclick="addSlot()">Save Note</button>
+      </div>
+      <ul class="item-list" id="slotList"></ul>
+    </section>
+
+    <!-- Feature 3: Refill Date Calculator -->
+    <div class="sec-head">
+      <h2>3. Stock Refill Date Calculator</h2>
+      <p>पिछली तारीख और कितने दिन का स्टॉक है चुनकर अगली रिफ़िल तारीख देखें।</p>
+    </div>
+    <section class="panel">
+      <div class="refill-row">
+        <div>
+          <label for="refillStart">Start / Purchase Date</label>
+          <input type="date" id="refillStart" />
+        </div>
+        <div>
+          <label for="refillDays">Stock Duration</label>
+          <select id="refillDays">
+            <option value="7">7 Days</option>
+            <option value="15">15 Days</option>
+            <option value="30" selected>30 Days</option>
+          </select>
+        </div>
+        <button class="btn btn-blue" type="button" onclick="calcRefill()">Calculate</button>
+      </div>
+      <div class="toast" id="refillToast"></div>
+    </section>
+
+    <!-- Feature 4: Store Info & Quick FAQ -->
+    <div class="sec-head">
+      <h2>4. Store Info & Customer FAQ</h2>
+      <p>पता, 24-घंटे समय, और आम सवालों के साफ जवाब।</p>
+    </div>
+    <section class="panel">
+      <div class="info-grid">
+        <div class="info-card">
+          <strong>Address</strong>
+          Bypass Rd, Gilan Para, Dumka, Jharkhand 814101
+        </div>
+        <div class="info-card">
+          <strong>Operating Hours</strong>
+          Open 24 Hours (Round-the-Clock)
+        </div>
+        <div class="info-card">
+          <strong>Contact & Social</strong>
+          Phone/WA: 082100 45180 &bull; IG: @sr7_medical_hall
+        </div>
+      </div>
+    </section>
+
+    <details open>
+      <summary>क्या मैं पर्ची (Prescription) की फ़ोटो WhatsApp पर भेज सकता हूँ?</summary>
+      <p>हाँ, WhatsApp Inquiry बटन दबाकर आप अपनी पर्ची या आइटम लिस्ट भेजकर उपलब्धता पूछ सकते हैं।</p>
+    </details>
+    <details>
+      <summary>क्या मेरी बनाई हुई लिस्ट और नोट्स सेव रहते हैं?</summary>
+      <p>हाँ, इस ब्राउज़र में आपकी आइटम लिस्ट और टाइम-स्लॉट नोट्स लोकल स्टोरेज में सेव रहते हैं जब तक आप उन्हें हटा न दें।</p>
+    </details>
+    <details>
+      <summary>क्या यह वेबसाइट मेडिकल सलाह देती है?</summary>
+      <p>नहीं। यह केवल स्टोर की जानकारी और उपलब्धता पूछताछ के लिए है। किसी भी स्वास्थ्य या खुराक संबंधी निर्णय के लिए योग्य डॉक्टर या फार्मासिस्ट से सलाह लें।</p>
+    </details>
+
+    <div class="notice">
+      <strong>Disclaimer:</strong> Stock availability, pricing, and order confirmation are handled directly by SR7 Medical Hall. Always follow a qualified doctor's or pharmacist's guidance for medicines and dosages.
     </div>
 
-    <h2 class="section-title">Store Information</h2>
-    <div class="info-box">
-      <div class="info-row">
-        <span class="label">Store Name</span>
-        <span class="val">SR7 MEDICAL HALL</span>
-      </div>
-      <div class="info-row">
-        <span class="label">Address</span>
-        <span class="val">Bypass Rd, Gilan Para, Dumka, Jharkhand 814101</span>
-      </div>
-      <div class="info-row">
-        <span class="label">Timing</span>
-        <span class="val">Open 24 Hours</span>
-      </div>
-      <div class="info-row">
-        <span class="label">Phone / WhatsApp</span>
-        <span class="val">+91 082100 45180</span>
-      </div>
-    </div>
-
-    <div class="social-card">
-      Follow Pharmacy & Local Updates on Instagram:
-      <a href="https://www.instagram.com/sr7_medical_hall/" target="_blank">@sr7_medical_hall</a>
-    </div>
-
-    <p class="note">
-      This page is for store information, location directions, and availability enquiries only.
-    </p>
+    <footer>
+      SR7 Medical Hall • Bypass Rd, Gilan Para, Dumka • Designed by PRIYTAM KUMAR
+    </footer>
   </main>
 
-  <footer>
-    © 2026 SR7 MEDICAL HALL • Demo Website Designed by PRIYTAM KUMAR
-  </footer>
+  <script>
+    const PHONE = "918210045180";
+    const ADDRESS_TEXT = "SR7 MEDICAL HALL, Bypass Rd, Gilan Para, Dumka, Jharkhand 814101";
 
+    let meds = JSON.parse(localStorage.getItem("sr7_meds") || "[]");
+    let slots = JSON.parse(localStorage.getItem("sr7_slots") || "[]");
+
+    function showToast(id, msg) {
+      const el = document.getElementById(id);
+      el.style.display = "block";
+      el.innerHTML = msg;
+    }
+
+    function copyAddress() {
+      navigator.clipboard?.writeText(ADDRESS_TEXT);
+      showToast("addrToast", "पता कॉपी हो गया: <strong>" + ADDRESS_TEXT + "</strong>");
+    }
+
+    function saveMeds() {
+      localStorage.setItem("sr7_meds", JSON.stringify(meds));
+      renderMeds();
+    }
+
+    function quickAdd(name) {
+      const existing = meds.find(m => m.name.toLowerCase() === name.toLowerCase());
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        meds.push({ name, qty: 1 });
+      }
+      saveMeds();
+    }
+
+    function addMed() {
+      const inp = document.getElementById("medName");
+      const qtyInp = document.getElementById("medQty");
+      const name = inp.value.trim();
+      const qty = Math.max(1, parseInt(qtyInp.value, 10) || 1);
+      if (!name) { inp.focus(); return; }
+      meds.push({ name, qty });
+      inp.value = "";
+      qtyInp.value = "1";
+      saveMeds();
+    }
+
+    function removeMed(i) {
+      meds.splice(i, 1);
+      saveMeds();
+    }
+
+    function clearMeds() {
+      meds = [];
+      saveMeds();
+    }
+
+    function renderMeds() {
+      const ul = document.getElementById("medList");
+      const sumEl = document.getElementById("itemSummary");
+      const totalQty = meds.reduce((acc, item) => acc + item.qty, 0);
+      sumEl.textContent = `Items: ${meds.length} | Total Qty: ${totalQty}`;
+
+      ul.innerHTML = "";
+      if (meds.length === 0) {
+        ul.innerHTML = '<li class="empty">अभी कोई आइटम नहीं जोड़ा गया है।</li>';
+        return;
+      }
+      meds.forEach((m, i) => {
+        const li = document.createElement("li");
+        li.className = "row-item";
+        li.innerHTML = `<span><strong>${m.name}</strong> &times; ${m.qty}</span><button class="btn-del" type="button" onclick="removeMed(${i})">Remove</button>`;
+        ul.appendChild(li);
+      });
+    }
+
+    function buildSummaryText() {
+      let txt = "Namaste SR7 Medical Hall, here is my inquiry list:\n";
+      if (meds.length === 0) {
+        txt += "- Please check medicine / prescription availability.\n";
+      } else {
+        meds.forEach((m, i) => { txt += `${i + 1}. ${m.name} (Qty: ${m.qty})\n`; });
+      }
+      return txt.trim();
+    }
+
+    function sendListWhatsApp() {
+      const url = `https://wa.me/${PHONE}?text=${encodeURIComponent(buildSummaryText())}`;
+      window.open(url, "_blank");
+    }
+
+    function copyListText() {
+      const txt = buildSummaryText();
+      navigator.clipboard?.writeText(txt);
+      showToast("listToast", "लिस्ट समरी कॉपी हो गई है। आप इसे कहीं भी पेस्ट कर सकते हैं।");
+    }
+
+    function saveSlots() {
+      localStorage.setItem("sr7_slots", JSON.stringify(slots));
+      renderSlots();
+    }
+
+    function addSlot() {
+      const noteInp = document.getElementById("slotNote");
+      const timeSel = document.getElementById("slotTime");
+      const note = noteInp.value.trim();
+      if (!note) { noteInp.focus(); return; }
+      slots.push({ note, time: timeSel.value });
+      noteInp.value = "";
+      saveSlots();
+    }
+
+    function removeSlot(i) {
+      slots.splice(i, 1);
+      saveSlots();
+    }
+
+    function renderSlots() {
+      const ul = document.getElementById("slotList");
+      ul.innerHTML = "";
+      if (slots.length === 0) {
+        ul.innerHTML = '<li class="empty">कोई टाइम-स्लॉट नोट सेव नहीं है।</li>';
+        return;
+      }
+      slots.forEach((s, i) => {
+        const li = document.createElement("li");
+        li.className = "row-item";
+        li.innerHTML = `<span><strong>[${s.time}]</strong> ${s.note}</span><button class="btn-del" type="button" onclick="removeSlot(${i})">Delete</button>`;
+        ul.appendChild(li);
+      });
+    }
+
+    function calcRefill() {
+      const startVal = document.getElementById("refillStart").value;
+      const days = parseInt(document.getElementById("refillDays").value, 10);
+      if (!startVal) {
+        showToast("refillToast", "कृपया तारीख चुनें।");
+        return;
+      }
+      const d = new Date(startVal + "T00:00:00");
+      d.setDate(d.getDate() + days);
+      const formatted = d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+      showToast("refillToast", `अगली संभावित रिफ़िल तारीख: <strong>${formatted}</strong> (${days} दिन बाद)।`);
+    }
+
+    document.getElementById("refillStart").valueAsDate = new Date();
+    renderMeds();
+    renderSlots();
+  </script>
 </body>
 </html>
