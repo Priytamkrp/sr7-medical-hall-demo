@@ -3,41 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SR7 Medical Hall | Owner Catalog & Pharmacy Desk — Dumka</title>
+  <title>SR7 Medical Hall | Pharmacy Catalog & Desk — Dumka</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #070e1a;
-      --surface: #0e192b;
-      --card: #15243d;
-      --card-2: #1b2e4d;
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --primary: #0ea5e9;
-      --primary-2: #0284c7;
-      --teal: #14b8a6;
+      --bg: #08111f;
+      --surface: #0f1d32;
+      --card: #162844;
+      --card-2: #1d3457;
+      --text: #f1f5f9;
+      --muted: #9fb0c7;
+      --primary: #38bdf8;
+      --primary-text: #041525;
+      --primary-hover: #7dd3fc;
+      --teal: #2dd4bf;
       --green: #22c55e;
-      --amber: #f59e0b;
-      --danger: #ef4444;
+      --green-text: #042410;
+      --insta: #e1306c;
+      --insta-text: #ffffff;
+      --amber: #fbbf24;
+      --danger: #f87171;
       --border: rgba(148, 163, 184, 0.16);
       --radius: 14px;
       --scale: 1;
-      --pad: 16px;
+      --pad: 18px;
     }
 
     body.light {
-      --bg: #f1f5f9;
+      --bg: #f3f6fa;
       --surface: #ffffff;
       --card: #f8fafc;
-      --card-2: #e2e8f0;
+      --card-2: #e8eef6;
       --text: #0f172a;
       --muted: #475569;
-      --primary: #0369a1;
-      --primary-2: #075985;
-      --teal: #0f766e;
-      --green: #15803d;
+      --primary: #0284c7;
+      --primary-text: #ffffff;
+      --primary-hover: #0369a1;
+      --teal: #0d9488;
+      --green: #16a34a;
+      --green-text: #ffffff;
+      --insta: #db2777;
+      --insta-text: #ffffff;
       --amber: #b45309;
       --danger: #dc2626;
-      --border: rgba(15, 23, 42, 0.12);
+      --border: rgba(15, 23, 42, 0.11);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -45,11 +56,15 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-size: calc(14px * var(--scale));
-      line-height: 1.55;
+      line-height: 1.6;
       transition: background 0.3s ease, color 0.3s ease;
       padding-bottom: 60px;
+    }
+
+    h1, h2, h3, .b-title, .btn, .stat-v, .price-now {
+      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
     }
 
     @keyframes riseIn {
@@ -79,36 +94,36 @@
     .mark {
       width: 38px; height: 38px; border-radius: 10px;
       background: linear-gradient(135deg, var(--primary), var(--teal));
-      color: #fff; font-weight: 900; font-size: 19px; display: grid; place-items: center;
-      box-shadow: 0 6px 16px rgba(14, 165, 233, 0.25);
+      color: #061322; font-weight: 800; font-size: 20px; display: grid; place-items: center;
+      box-shadow: 0 6px 16px rgba(56, 189, 248, 0.24);
     }
-    .b-title { font-weight: 800; font-size: 15px; }
+    .b-title { font-weight: 800; font-size: 15px; letter-spacing: 0.2px; color: var(--text); }
     .b-sub { font-size: 11.5px; color: var(--muted); }
 
     .wrap { max-width: 1060px; margin: 0 auto; padding: 20px 16px; }
 
     .hero {
-      background: linear-gradient(135deg, rgba(14, 165, 233, 0.16), rgba(20, 184, 166, 0.1)), var(--surface);
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.14), rgba(45, 212, 191, 0.08)), var(--surface);
       border: 1px solid var(--border); border-radius: var(--radius);
-      padding: 24px 18px; margin-bottom: 18px; animation: riseIn 0.45s ease forwards;
+      padding: 24px 20px; margin-bottom: 18px; animation: riseIn 0.45s ease forwards;
     }
-    .hero h1 { font-size: clamp(22px, 4.5vw, 30px); font-weight: 900; margin-bottom: 6px; }
-    .hero p { color: var(--muted); max-width: 720px; }
+    .hero h1 { font-size: clamp(22px, 4.5vw, 30px); font-weight: 800; margin-bottom: 6px; color: var(--text); }
+    .hero p { color: var(--muted); max-width: 740px; }
 
     .stats {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
       gap: 10px; margin-top: 16px;
     }
     .stat {
       background: var(--card); border: 1px solid var(--border); border-radius: 11px;
-      padding: 11px; transition: transform 0.2s ease, background 0.2s ease;
+      padding: 12px; transition: transform 0.2s ease, background 0.2s ease;
     }
     .stat:hover { transform: translateY(-2px); background: var(--card-2); }
     .stat-v { font-size: 16px; font-weight: 800; color: var(--primary); }
-    .stat-l { font-size: 11px; color: var(--muted); }
+    .stat-l { font-size: 11.5px; color: var(--muted); }
 
     .sec-head { margin: 24px 0 10px; display: flex; justify-content: space-between; align-items: end; flex-wrap: wrap; gap: 8px; }
-    .sec-head h2 { font-size: 18px; font-weight: 800; }
+    .sec-head h2 { font-size: 18px; font-weight: 800; color: var(--text); }
     .sec-head p { font-size: 12.5px; color: var(--muted); }
 
     .panel {
@@ -117,13 +132,15 @@
     }
 
     .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-    .grid-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); gap: 10px; }
+    .grid-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 11px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; }
     .full-span { grid-column: 1 / -1; }
 
-    label { display: block; font-size: 11.5px; color: var(--muted); font-weight: 700; margin-bottom: 4px; }
+    label { display: block; font-size: 11.5px; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
     input, select, textarea {
       width: 100%; background: var(--card); color: var(--text); border: 1px solid var(--border);
-      border-radius: 9px; padding: 9px 11px; font-size: 13px; outline: none; transition: border-color 0.2s ease;
+      border-radius: 9px; padding: 9px 11px; font-size: 13px; font-family: 'Inter', sans-serif;
+      outline: none; transition: border-color 0.2s ease;
     }
     input:focus, select:focus, textarea:focus { border-color: var(--primary); }
 
@@ -131,15 +148,16 @@
       border: 1px solid var(--border); background: var(--card); color: var(--text);
       border-radius: 9px; padding: 9px 13px; font-size: 12.5px; font-weight: 700;
       cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-      transition: transform 0.15s ease, background 0.2s ease;
+      transition: transform 0.15s ease, background 0.2s ease, opacity 0.2s ease;
     }
     .btn:hover { background: var(--card-2); transform: translateY(-1px); }
     .btn:active { transform: scale(0.98); }
-    .btn-pri { background: var(--primary); border-color: var(--primary); color: #fff; }
-    .btn-pri:hover { background: var(--primary-2); }
-    .btn-ok { background: var(--green); border-color: var(--green); color: #052e16; font-weight: 800; }
-    .btn-warn { background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.4); color: var(--amber); }
-    .btn-del { background: rgba(239, 68, 68, 0.12); border-color: rgba(239, 68, 68, 0.35); color: #fca5a5; }
+    .btn-pri { background: var(--primary); border-color: var(--primary); color: var(--primary-text); }
+    .btn-pri:hover { background: var(--primary-hover); }
+    .btn-ok { background: var(--green); border-color: var(--green); color: var(--green-text); font-weight: 800; }
+    .btn-insta { background: var(--insta); border-color: var(--insta); color: var(--insta-text); font-weight: 800; }
+    .btn-warn { background: rgba(251, 191, 36, 0.14); border-color: rgba(251, 191, 36, 0.35); color: var(--amber); }
+    .btn-del { background: rgba(248, 113, 113, 0.14); border-color: rgba(248, 113, 113, 0.35); color: var(--danger); }
     .btn-sm { padding: 5px 9px; font-size: 11.5px; }
 
     .preview-box {
@@ -151,7 +169,6 @@
       background: var(--surface); border: 1px solid var(--border);
     }
 
-    /* Catalog Cards */
     .catalog-grid {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(245px, 1fr)); gap: 14px;
     }
@@ -166,32 +183,42 @@
       width: 100%; height: 150px; object-fit: cover; background: var(--surface);
       display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 12px;
     }
-    .prod-body { padding: 12px; flex: 1; }
+    .prod-body { padding: 13px; flex: 1; }
     .prod-top { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-bottom: 6px; }
     .cat-tag {
       font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 999px;
-      background: rgba(14, 165, 233, 0.15); color: var(--primary);
+      background: rgba(56, 189, 248, 0.15); color: var(--primary);
     }
     .stock-tag {
       font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 999px;
     }
-    .in-stock { background: rgba(34, 197, 94, 0.15); color: #4ade80; }
-    .out-stock { background: rgba(239, 68, 68, 0.15); color: #fca5a5; }
-    .prod-name { font-size: 15px; font-weight: 800; margin-bottom: 3px; }
+    .in-stock { background: rgba(34, 197, 94, 0.15); color: var(--green); }
+    .out-stock { background: rgba(248, 113, 113, 0.15); color: var(--danger); }
+    .prod-name { font-size: 15.5px; font-weight: 800; margin-bottom: 3px; color: var(--text); }
     .prod-note { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
-    .price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 8px; }
-    .price-now { font-size: 17px; font-weight: 900; color: var(--teal); }
+    .price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px; }
+    .price-now { font-size: 17.5px; font-weight: 800; color: var(--teal); }
     .price-mrp { font-size: 12px; color: var(--muted); text-decoration: line-through; }
     .offer-badge { font-size: 11px; font-weight: 700; color: var(--amber); }
 
     .prod-foot {
-      padding: 10px 12px; border-top: 1px solid var(--border);
-      display: flex; flex-direction: column; gap: 7px; background: color-mix(in srgb, var(--surface) 60%, transparent);
+      padding: 10px 13px; border-top: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 7px; background: color-mix(in srgb, var(--surface) 55%, transparent);
     }
 
+    .info-box {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px;
+    }
+   .info-title { font-size: 12px; font-weight: 800; color: var(--primary); text-transform: uppercase; margin-bottom: 6px; }
+    .info-line { font-size: 13px; color: var(--text); margin-bottom: 4px; }
+    .info-sub { font-size: 12px; color: var(--muted); }
+
+    .owner-only { display: none; }
+    body.owner-unlocked .owner-only { display: block; }
+
     .toast {
-      margin-top: 10px; padding: 10px 12px; border-radius: 9px; font-size: 12.5px;
-      background: rgba(14, 165, 233, 0.12); border: 1px solid rgba(14, 165, 233, 0.3); display: none;
+      margin-top: 10px; padding: 10px 12px; border-radius: 9px; font-size: 12.5px; color: var(--text);
+      background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3); display: none;
     }
     .empty { text-align: center; color: var(--muted); padding: 24px; border: 1px dashed var(--border); border-radius: 12px; }
 
@@ -199,12 +226,12 @@
       background: var(--surface); border: 1px solid var(--border); border-radius: 11px;
       padding: 12px 15px; margin-bottom: 9px;
     }
-    summary { font-weight: 700; font-size: 13.5px; cursor: pointer; list-style: none; }
+    summary { font-weight: 700; font-size: 13.5px; cursor: pointer; list-style: none; color: var(--text); }
     details p { margin-top: 7px; font-size: 12.5px; color: var(--muted); }
 
     .disclaimer {
       margin-top: 18px; padding: 11px 14px; border-radius: 10px; font-size: 11.5px;
-      background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.25); color: var(--muted);
+      background: rgba(251, 191, 36, 0.08); border: 1px solid rgba(251, 191, 36, 0.25); color: var(--muted);
     }
     footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 28px; }
   </style>
@@ -222,12 +249,14 @@
         </div>
       </div>
       <div class="row">
+        <button class="btn btn-sm" type="button" id="ownerBtn" onclick="handleOwnerToggle()">Owner Login</button>
         <button class="btn btn-sm" type="button" onclick="toggleTheme()">Light / Dark</button>
         <button class="btn btn-sm" type="button" onclick="setScale(0.95)">A-</button>
         <button class="btn btn-sm" type="button" onclick="setScale(1)">A</button>
         <button class="btn btn-sm" type="button" onclick="setScale(1.1)">A+</button>
         <button class="btn btn-sm" type="button" onclick="togglePad()">Compact</button>
         <a class="btn btn-sm btn-ok" href="https://wa.me/918210045180?text=Hello%20SR7%20Medical%20Hall%2C%20I%20want%20to%20enquire." target="_blank">WhatsApp</a>
+        <a class="btn btn-sm btn-insta" href="https://www.instagram.com/sr7_medical_hall/" target="_blank">Instagram</a>
         <a class="btn btn-sm btn-pri" href="https://www.google.com/maps/search/?api=1&query=SR7+MEDICAL+HALL+Bypass+Rd+Gilan+Para+Dumka+Jharkhand+814101" target="_blank">Maps</a>
       </div>
     </div>
@@ -238,7 +267,7 @@
     <section class="hero">
       <h1>SR7 Medical Hall — Store Catalog & Desk</h1>
       <p>
-        स्टोर के मालिक के लिए अपना ख़ुद का कैटलॉग बनाने, फ़ोटो और प्राइस के साथ आइटम/दवाई लिस्ट करने, स्टॉक/ऑफ़र बदलने, और ग्राहकों के लिए सीधे WhatsApp इंक्वायरी भेजने का डैशबोर्ड।
+        Customers ke liye clean store catalog, photo, price, stock status aur direct WhatsApp/Instagram connect—aur store owner ke liye PIN-protected catalog management.
       </p>
       <div class="stats">
         <div class="stat"><div class="stat-v" id="statTotal">0</div><div class="stat-l">Total Listed Items</div></div>
@@ -246,90 +275,94 @@
         <div class="stat"><div class="stat-v" id="statOutStock">0</div><div class="stat-l">Out of Stock</div></div>
         <div class="stat"><div class="stat-v">24x7 • 5.0★</div><div class="stat-l">Bypass Rd, Dumka</div></div>
       </div>
+      <div class="toast" id="globalToast"></div>
     </section>
 
-    <!-- Owner Catalog Manager -->
-    <div class="sec-head reveal">
-      <div>
-        <h2>1. Owner Catalog Manager (फ़ोटो + प्राइस के साथ आइटम जोड़ें/एडिट करें)</h2>
-        <p>मालिक यहाँ किसी भी आइटम/दवाई का नाम, प्राइस, MRP, ऑफ़र, कैटेगरी, स्टॉक, और फ़ोटो (Upload या Image Link) डाल सकते हैं।</p>
+    <!-- Owner-Only Catalog Manager -->
+    <div class="owner-only">
+      <div class="sec-head">
+        <div>
+          <h2>1. Owner Catalog Manager (Unlocked)</h2>
+          <p>Yahan se aap photo, price, MRP, offer, stock aur description ke saath item add/edit kar sakte hain ya apna PIN change kar sakte hain.</p>
+        </div>
+        <div class="row">
+          <button class="btn btn-sm btn-warn" type="button" onclick="loadSampleItems()">Load Sample Items</button>
+          <button class="btn btn-sm" type="button" onclick="changeOwnerPin()">Change PIN</button>
+          <button class="btn btn-sm" type="button" onclick="exportJson()">Export JSON</button>
+          <label class="btn btn-sm" style="margin:0; cursor:pointer;">
+            Import JSON <input type="file" accept=".json" style="display:none;" onchange="importJson(event)" />
+          </label>
+          <button class="btn btn-sm btn-del" type="button" onclick="clearAllCatalog()">Delete All</button>
+        </div>
       </div>
-      <div class="row">
-        <button class="btn btn-sm btn-warn" type="button" onclick="loadSampleItems()">Load Sample Items</button>
-        <button class="btn btn-sm" type="button" onclick="exportJson()">Export JSON</button>
-        <label class="btn btn-sm" style="margin:0; cursor:pointer;">
-          Import JSON <input type="file" accept=".json" style="display:none;" onchange="importJson(event)" />
-        </label>
-        <button class="btn btn-sm btn-del" type="button" onclick="clearAllCatalog()">Delete All</button>
-      </div>
-    </div>
 
-    <section class="panel reveal">
-      <div class="grid-form">
-        <div>
-          <label for="pName">Item / Medicine Name *</label>
-          <input type="text" id="pName" placeholder="e.g. Digital Thermometer" />
-        </div>
-        <div>
-          <label for="pPrice">Selling Price (₹) *</label>
-          <input type="number" id="pPrice" min="0" step="0.5" placeholder="e.g. 180" />
-        </div>
-        <div>
-          <label for="pMrp">MRP (₹ Optional)</label>
-          <input type="number" id="pMrp" min="0" step="0.5" placeholder="e.g. 220" />
-        </div>
-        <div>
-          <label for="pOffer">Offer / Pack Tag</label>
-          <input type="text" id="pOffer" placeholder="e.g. 10% Off / Strip of 10" />
-        </div>
-        <div>
-          <label for="pCat">Category</label>
-          <select id="pCat">
-            <option value="General Store">General Store</option>
-            <option value="First Aid">First Aid</option>
-            <option value="Health Care">Health Care</option>
-            <option value="Baby & Personal Care">Baby & Personal Care</option>
-            <option value="Wellness & Essentials">Wellness & Essentials</option>
-          </select>
-        </div>
-        <div>
-          <label for="pStock">Stock Status</label>
-          <select id="pStock">
-            <option value="In Stock">In Stock</option>
-            <option value="Out of Stock">Out of Stock</option>
-          </select>
-        </div>
-        <div>
-          <label for="pPhotoFile">Upload Photo (Phone / PC)</label>
-          <input type="file" id="pPhotoFile" accept="image/*" onchange="handleFileUpload(event)" />
-        </div>
-        <div>
-          <label for="pPhotoUrl">OR Photo Image URL</label>
-          <input type="text" id="pPhotoUrl" placeholder="https://..." oninput="handleUrlInput()" />
-        </div>
-        <div class="full-span">
-          <label for="pNote">Short Description / Pack Details</label>
-          <input type="text" id="pNote" placeholder="e.g. Pack details, usage note or storage info..." />
-        </div>
-        <div class="full-span">
-          <div class="preview-box">
-            <img id="imgPreview" class="preview-thumb" src="" alt="Preview" style="display:none;" />
-            <div id="previewText" style="font-size:12px; color:var(--muted);">फ़ोटो प्रीव्यू यहाँ दिखेगा (Upload या URL डालें)।</div>
+      <section class="panel">
+        <div class="grid-form">
+          <div>
+            <label for="pName">Item / Medicine Name *</label>
+            <input type="text" id="pName" placeholder="e.g. Digital Thermometer" />
+          </div>
+          <div>
+            <label for="pPrice">Selling Price (₹) *</label>
+            <input type="number" id="pPrice" min="0" step="0.5" placeholder="e.g. 180" />
+          </div>
+          <div>
+            <label for="pMrp">MRP (₹ Optional)</label>
+            <input type="number" id="pMrp" min="0" step="0.5" placeholder="e.g. 220" />
+          </div>
+          <div>
+            <label for="pOffer">Offer / Pack Tag</label>
+            <input type="text" id="pOffer" placeholder="e.g. 10% Off / Pack of 1" />
+          </div>
+          <div>
+            <label for="pCat">Category</label>
+            <select id="pCat">
+              <option value="General Store">General Store</option>
+              <option value="First Aid">First Aid</option>
+              <option value="Health Care">Health Care</option>
+              <option value="Baby & Personal Care">Baby & Personal Care</option>
+              <option value="Wellness & Essentials">Wellness & Essentials</option>
+            </select>
+          </div>
+          <div>
+            <label for="pStock">Stock Status</label>
+            <select id="pStock">
+              <option value="In Stock">In Stock</option>
+              <option value="Out of Stock">Out of Stock</option>
+            </select>
+          </div>
+          <div>
+            <label for="pPhotoFile">Upload Photo (Phone / PC)</label>
+            <input type="file" id="pPhotoFile" accept="image/*" onchange="handleFileUpload(event)" />
+          </div>
+          <div>
+            <label for="pPhotoUrl">OR Photo Image URL</label>
+            <input type="text" id="pPhotoUrl" placeholder="https://..." oninput="handleUrlInput()" />
+          </div>
+          <div class="full-span">
+            <label for="pNote">Short Description / Pack Details</label>
+            <input type="text" id="pNote" placeholder="Pack details, usage note ya storage info..." />
+          </div>
+          <div class="full-span">
+            <div class="preview-box">
+              <img id="imgPreview" class="preview-thumb" src="" alt="Preview" style="display:none;" />
+              <div id="previewText" style="font-size:12px; color:var(--muted);">Photo preview yahan dikhega (Upload ya URL daalein).</div>
+            </div>
+          </div>
+          <div class="full-span row">
+            <button class="btn btn-pri" type="button" id="saveBtn" onclick="saveProduct()">+ Save Item to Catalog</button>
+            <button class="btn" type="button" id="cancelEditBtn" style="display:none;" onclick="resetForm()">Cancel Edit</button>
           </div>
         </div>
-        <div class="full-span row">
-          <button class="btn btn-pri" type="button" id="saveBtn" onclick="saveProduct()">+ Save Item to Catalog</button>
-          <button class="btn" type="button" id="cancelEditBtn" style="display:none;" onclick="resetForm()">Cancel Edit</button>
-        </div>
-      </div>
-      <div class="toast" id="ownerToast"></div>
-    </section>
+        <div class="toast" id="ownerToast"></div>
+      </section>
+    </div>
 
     <!-- Search, Filter, Sort & Catalog Display -->
     <div class="sec-head reveal">
       <div>
-        <h2>2. Live Store Catalog</h2>
-        <p>नाम या नोट खोजें, कैटेगरी/स्टॉक फ़िल्टर करें, प्राइस/नाम से सॉर्ट करें, या सीधे WhatsApp पर इंक्वायरी भेजें।</p>
+        <h2>Live Store Catalog</h2>
+        <p>Customer aasani se item search kar sakta hai, category ya stock filter kar sakta hai, price sort kar sakta hai, aur WhatsApp par enquiry bhej sakta hai.</p>
       </div>
     </div>
 
@@ -337,7 +370,7 @@
       <div class="grid-form" style="margin-bottom: 14px;">
         <div>
           <label for="searchBox">Search Item</label>
-          <input type="text" id="searchBox" placeholder="नाम या विवरण खोजें..." oninput="renderCatalog()" />
+          <input type="text" id="searchBox" placeholder="Naam ya description search karein..." oninput="renderCatalog()" />
         </div>
         <div>
           <label for="catFilter">Filter Category</label>
@@ -368,41 +401,78 @@
           </select>
         </div>
       </div>
-
-      <div class="catalog-grid" id="catalogGrid"></div>
+    <div class="catalog-grid" id="catalogGrid"></div>
     </section>
 
-    <!-- Store Info & FAQ -->
+    <!-- FAQ -->
     <div class="sec-head reveal">
-      <div><h2>3. Store Info & FAQ</h2></div>
+      <div><h2>Quick FAQ</h2></div>
     </div>
     <details class="reveal" open>
-      <summary>स्टोर के मालिक अपने आइटम, फ़ोटो और प्राइस कैसे बदल सकते हैं?</summary>
-      <p>ऊपर Owner Catalog Manager में आइटम का नाम, प्राइस, फ़ोटो और स्टॉक भरकर Save करें। किसी भी कार्ड पर Edit, Stock Toggle या Delete बटन से तुरंत बदलाव किया जा सकता है।</p>
+      <summary>Store owner apne items, photo aur price kaise update kar sakte hain?</summary>
+      <p>Upar <strong>Owner Login</strong> par tap karke PIN <code>9226</code> daalein (jise aap baad mein change bhi kar sakte hain). Unlock hone ke baad item add, edit, stock toggle, aur delete ka option dikhega.</p>
     </details>
     <details class="reveal">
       <summary>क्या यह वेबसाइट मेडिकल सलाह या इलाज देती है?</summary>
-      <p>नहीं। यह केवल स्टोर कैटलॉग, प्राइस/उपलब्धता पूछताछ और संपर्क के लिए है। किसी भी दवाई या खुराक के लिए रजिस्टर्ड डॉक्टर या फार्मासिस्ट से सलाह लें।</p>
+      <p>नहीं। यह केवल store catalog, price/availability enquiry और contact information के लिए है। किसी भी दवाई या dosage के लिए qualified doctor या pharmacist से सलाह लें।</p>
     </details>
 
+    <!-- Last Section: Customer Store Details, WhatsApp & Instagram -->
+    <div class="sec-head reveal">
+      <div>
+        <h2>Store Details, WhatsApp & Instagram</h2>
+        <p>SR7 Medical Hall ki complete details, address, phone, WhatsApp aur Instagram handle ek jagah.</p>
+      </div>
+    </div>
+    <section class="panel reveal">
+      <div class="grid-2">
+        <div class="info-box">
+          <div class="info-title">Store Address & Timing</div>
+          <div class="info-line"><strong>SR7 MEDICAL HALL</strong></div>
+          <div class="info-line">Bypass Rd, Gilan Para, Dumka, Jharkhand 814101</div>
+          <div class="info-sub">Timing: Open 24 Hours • Google Rating: 5.0 ★</div>
+          <div class="row" style="margin-top:10px;">
+            <button class="btn btn-sm" type="button" onclick="copyAddress()">Copy Address</button>
+            <a class="btn btn-sm btn-pri" href="https://www.google.com/maps/search/?api=1&query=SR7+MEDICAL+HALL+Bypass+Rd+Gilan+Para+Dumka+Jharkhand+814101" target="_blank">Open Google Maps</a>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <div class="info-title">Connect on WhatsApp & Instagram</div>
+          <div class="info-line"><strong>Phone / WhatsApp:</strong> +91 082100 45180</div>
+          <div class="info-line"><strong>Instagram:</strong> @sr7_medical_hall</div>
+          <div class="info-sub">Direct enquiry ya reels/updates ke liye neeche buttons dabayein.</div>
+          <div class="row" style="margin-top:10px;">
+            <a class="btn btn-sm btn-ok" href="https://wa.me/918210045180?text=Hello%20SR7%20Medical%20Hall%2C%20I%20want%20to%20enquire." target="_blank">Chat on WhatsApp</a>
+            <a class="btn btn-sm btn-insta" href="https://www.instagram.com/sr7_medical_hall/" target="_blank">Follow @sr7_medical_hall</a>
+            <a class="btn btn-sm" href="tel:+918210045180">Call Store</a>
+          </div>
+        </div>
+      </div>
+      <div class="toast" id="contactToast"></div>
+    </section>
+
     <div class="disclaimer reveal">
-      <strong>Notice:</strong> Prices, discounts, and stock availability are managed by the store owner and confirmed on WhatsApp or at the counter. Always consult a qualified doctor or pharmacist for medical advice.
+      <strong>Notice:</strong> Prices, offers, and stock availability are managed by the store owner and confirmed on WhatsApp or at the counter. Always consult a qualified doctor or pharmacist for medical advice.
     </div>
 
     <footer>
-      SR7 Medical Hall • Bypass Rd, Gilan Para, Dumka • Designed by PRIYTAM KUMAR
+      SR7 Medical Hall • Bypass Rd, Gilan Para, Dumka • @sr7_medical_hall • Designed by PRIYTAM KUMAR
     </footer>
   </main>
 
   <script>
     const PHONE = "918210045180";
+    const FULL_ADDRESS = "SR7 MEDICAL HALL, Bypass Rd, Gilan Para, Dumka, Jharkhand 814101";
     const STORAGE_KEY = "sr7_owner_catalog_v1";
+    const PIN_KEY = "sr7_owner_pin_v1";
 
     let products = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
     if (!Array.isArray(products)) {
       products = [];
     }
 
+    let isOwner = false;
     let editIndex = -1;
     let currentPhotoData = "";
     let compactPad = false;
@@ -412,20 +482,74 @@
     }, { threshold: 0.08 });
     document.querySelectorAll(".reveal").forEach(el => io.observe(el));
 
-    function notify(msg) {
-      const el = document.getElementById("ownerToast");
+    function showGlobalMsg(msg) {
+      const el = document.getElementById("globalToast");
       el.style.display = "block";
       el.innerHTML = msg;
+    }
+
+    function notify(msg) {
+      const el = document.getElementById("ownerToast");
+      if (!el) return;
+      el.style.display = "block";
+      el.innerHTML = msg;
+    }
+
+    function getPin() {
+      return localStorage.getItem(PIN_KEY) || "9226";
+    }
+
+    function handleOwnerToggle() {
+      const btn = document.getElementById("ownerBtn");
+      if (isOwner) {
+        isOwner = false;
+        document.body.classList.remove("owner-unlocked");
+        btn.textContent = "Owner Login";
+        resetForm();
+        renderCatalog();
+        showGlobalMsg("Owner mode lock ho gaya hai. Ab page clean customer view mein hai.");
+        return;
+      }
+      const entered = prompt("Owner PIN daalein:");
+      if (entered === null) return;
+      if (entered === getPin()) {
+        isOwner = true;
+        document.body.classList.add("owner-unlocked");
+        btn.textContent = "Lock Owner";
+        renderCatalog();
+        showGlobalMsg("Owner mode unlock ho gaya hai. Kaam ke baad Lock Owner zaroor dabayein.");
+      } else {
+        showGlobalMsg("Galat PIN! Sahi Owner PIN daalein.");
+      }
+    }
+
+    function changeOwnerPin() {
+      if (!isOwner) return;
+      const nextPin = prompt("Naya 4-digit ya usse lamba Owner PIN likhein:");
+      if (!nextPin || nextPin.trim().length < 4) {
+        notify("Kam se kam 4 characters ka naya PIN daalein.");
+        return;
+      }
+      localStorage.setItem(PIN_KEY, nextPin.trim());
+      notify("Naya Owner PIN save ho gaya hai.");
+    }
+
+    function copyAddress() {
+      navigator.clipboard?.writeText(FULL_ADDRESS);
+      const el = document.getElementById("contactToast");
+      el.style.display = "block";
+      el.innerHTML = `Address copy ho gaya: <strong>${FULL_ADDRESS}</strong>`;
     }
 
     function toggleTheme() { document.body.classList.toggle("light"); }
     function setScale(val) { document.documentElement.style.setProperty("--scale", val); }
     function togglePad() {
       compactPad = !compactPad;
-      document.documentElement.style.setProperty("--pad", compactPad ? "11px" : "18px");
+      document.documentElement.style.setProperty("--pad", compactPad ? "12px" : "18px");
     }
 
     function handleFileUpload(e) {
+      if (!isOwner) return;
       const file = e.target.files && e.target.files[0];
       if (!file) return;
       const reader = new FileReader();
@@ -449,11 +573,13 @@
     }
 
     function handleUrlInput() {
+      if (!isOwner) return;
       const url = document.getElementById("pPhotoUrl").value.trim();
       currentPhotoData = url;
-      updatePreview(url, url ? "Image URL applied" : "फ़ोटो प्रीव्यू यहाँ दिखेगा");
+      updatePreview(url, url ? "Image URL applied" : "Photo preview yahan dikhega");
     }
- function updatePreview(src, label) {
+
+    function updatePreview(src, label) {
       const img = document.getElementById("imgPreview");
       const txt = document.getElementById("previewText");
       if (src) {
@@ -472,6 +598,7 @@
     }
 
     function saveProduct() {
+      if (!isOwner) return;
       const name = document.getElementById("pName").value.trim();
       const price = parseFloat(document.getElementById("pPrice").value);
       const mrpVal = document.getElementById("pMrp").value.trim();
@@ -482,10 +609,9 @@
       const note = document.getElementById("pNote").value.trim();
 
       if (!name || isNaN(price)) {
-        notify("कृपया कम से कम आइटम का नाम और प्राइस (₹) भरें।");
+        notify("Kam se kam item ka naam aur price (₹) zaroor bharein.");
         return;
       }
-
       const itemObj = {
         name,
         price,
@@ -500,10 +626,10 @@
 
       if (editIndex >= 0 && products[editIndex]) {
         products[editIndex] = itemObj;
-        notify(`<strong>${name}</strong> अपडेट हो गया है।`);
+        notify(`<strong>${name}</strong> update ho gaya hai.`);
       } else {
         products.unshift(itemObj);
-        notify(`<strong>${name}</strong> कैटलॉग में जुड़ गया है।`);
+        notify(`<strong>${name}</strong> catalog mein add ho gaya hai.`);
       }
 
       saveCatalog();
@@ -511,8 +637,8 @@
     }
 
     function editProduct(index) {
+      if (!isOwner || !products[index]) return;
       const p = products[index];
-      if (!p) return;
       editIndex = index;
       document.getElementById("pName").value = p.name;
       document.getElementById("pPrice").value = p.price;
@@ -533,34 +659,37 @@
       editIndex = -1;
       currentPhotoData = "";
       ["pName", "pPrice", "pMrp", "pOffer", "pNote", "pPhotoUrl", "pPhotoFile"].forEach(id => {
-        document.getElementById(id).value = "";
+        const el = document.getElementById(id);
+        if (el) el.value = "";
       });
       document.getElementById("pCat").value = "General Store";
       document.getElementById("pStock").value = "In Stock";
-      updatePreview("", "फ़ोटो प्रीव्यू यहाँ दिखेगा (Upload या URL डालें)।");
+      updatePreview("", "Photo preview yahan dikhega (Upload ya URL daalein).");
       document.getElementById("saveBtn").textContent = "+ Save Item to Catalog";
       document.getElementById("cancelEditBtn").style.display = "none";
     }
 
     function toggleStock(index) {
-      if (!products[index]) return;
+      if (!isOwner || !products[index]) return;
       products[index].stock = products[index].stock === "In Stock" ? "Out of Stock" : "In Stock";
       saveCatalog();
     }
 
     function deleteProduct(index) {
-      if (!products[index]) return;
+      if (!isOwner || !products[index]) return;
       products.splice(index, 1);
       saveCatalog();
     }
 
     function clearAllCatalog() {
+      if (!isOwner) return;
       products = [];
       saveCatalog();
-      notify("सभी कैटलॉग आइटम हटा दिए गए हैं।");
+      notify("Saare catalog items delete ho gaye hain.");
     }
 
     function loadSampleItems() {
+      if (!isOwner) return;
       const samples = [
         { name: "Digital Thermometer", price: 180, mrp: 220, offer: "Fast Reading", category: "Health Care", stock: "In Stock", note: "LCD display with beep alert", photo: "", updatedAt: Date.now() },
         { name: "Sterile Bandage Roll", price: 35, mrp: 40, offer: "First Aid Pack", category: "First Aid", stock: "In Stock", note: "6cm x 4m standard roll", photo: "", updatedAt: Date.now() - 1000 },
@@ -569,7 +698,7 @@
       ];
       products = [...samples, ...products];
       saveCatalog();
-      notify("सैंपल आइटम्स लोड हो गए हैं। आप इन्हें एडिट या डिलीट कर सकते हैं।");
+      notify("Sample items load ho gaye hain.");
     }
 
     function updateStats() {
@@ -599,17 +728,26 @@
 
       grid.innerHTML = "";
       if (list.length === 0) {
-        grid.innerHTML = '<div class="empty" style="grid-column:1/-1;">कोई आइटम नहीं मिला। ऊपर Owner Catalog Manager में नया आइटम जोड़ें या Load Sample Items दबाएं।</div>';
+        grid.innerHTML = '<div class="empty" style="grid-column:1/-1;">Abhi catalog mein koi item nahi dikh raha hai. Owner Login karke items add kar sakte hain.</div>';
         return;
       }
-list.forEach(p => {
+
+      list.forEach(p => {
         const waText = encodeURIComponent(`Namaste SR7 Medical Hall, I want to enquire about "${p.name}" (Listed Price: ₹${p.price}).`);
         const imgHtml = p.photo
           ? `<img class="prod-img" src="${p.photo}" alt="${p.name}" />`
-          : `<div class="prod-img">No Photo Added</div>`;
+          : `<div class="prod-img">Store Item</div>`;
         const mrpHtml = p.mrp && p.mrp > p.price ? `<span class="price-mrp">₹${p.mrp}</span>` : "";
         const offerHtml = p.offer ? `<div class="offer-badge">${p.offer}</div>` : "";
         const stockClass = p.stock === "In Stock" ? "in-stock" : "out-stock";
+
+        const ownerControlsHtml = isOwner ? `
+          <div class="row">
+            <button class="btn btn-sm" style="flex:1;" type="button" onclick="editProduct(${p.idx})">Edit</button>
+            <button class="btn btn-sm" style="flex:1;" type="button" onclick="toggleStock(${p.idx})">Stock</button>
+            <button class="btn btn-sm btn-del" type="button" onclick="deleteProduct(${p.idx})">Del</button>
+          </div>
+        ` : "";
 
         const card = document.createElement("div");
         card.className = "prod-card";
@@ -632,11 +770,7 @@ list.forEach(p => {
           </div>
           <div class="prod-foot">
             <a class="btn btn-sm btn-ok" href="https://wa.me/${PHONE}?text=${waText}" target="_blank">Enquire on WhatsApp</a>
-            <div class="row">
-              <button class="btn btn-sm" style="flex:1;" type="button" onclick="editProduct(${p.idx})">Edit</button>
-              <button class="btn btn-sm" style="flex:1;" type="button" onclick="toggleStock(${p.idx})">Stock</button>
-              <button class="btn btn-sm btn-del" type="button" onclick="deleteProduct(${p.idx})">Del</button>
-            </div>
+            ${ownerControlsHtml}
           </div>
         `;
         grid.appendChild(card);
@@ -644,6 +778,7 @@ list.forEach(p => {
     }
 
     function exportJson() {
+      if (!isOwner) return;
       const blob = new Blob([JSON.stringify(products, null, 2)], { type: "application/json" });
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
@@ -653,6 +788,7 @@ list.forEach(p => {
     }
 
     function importJson(e) {
+      if (!isOwner) return;
       const file = e.target.files && e.target.files[0];
       if (!file) return;
       const reader = new FileReader();
@@ -662,10 +798,10 @@ list.forEach(p => {
           if (Array.isArray(parsed)) {
             products = parsed;
             saveCatalog();
-            notify("कैटलॉग बैकअप सफलतापूर्वक इंपोर्ट हो गया।");
+            notify("Catalog backup import ho gaya hai.");
           }
         } catch {
-          notify("अमान्य JSON फ़ाइल।");
+          notify("Invalid JSON file.");
         }
       };
       reader.readAsText(file);
@@ -676,3 +812,4 @@ list.forEach(p => {
   </script>
 </body>
 </html>
+      
