@@ -1,328 +1,392 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SR7 Medical Hall | Smart Pharmacy Desk — Dumka</title>
+  <title>SR7 Medical Hall | Owner Catalog & Pharmacy Desk — Dumka</title>
   <style>
     :root {
-      --bg: #060b14;
-      --surface: #0e1626;
-      --card: #152238;
-      --border: rgba(148, 163, 184, 0.18);
+      --bg: #070e1a;
+      --surface: #0e192b;
+      --card: #15243d;
+      --card-2: #1b2e4d;
       --text: #f8fafc;
       --muted: #94a3b8;
-      --accent: #38bdf8;
-      --blue: #2563eb;
+      --primary: #0ea5e9;
+      --primary-2: #0284c7;
+      --teal: #14b8a6;
       --green: #22c55e;
-      --amber: #facc15;
+      --amber: #f59e0b;
+      --danger: #ef4444;
+      --border: rgba(148, 163, 184, 0.16);
+      --radius: 14px;
+      --scale: 1;
+      --pad: 16px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, Arial, sans-serif; }
-    body { background: var(--bg); color: var(--text); line-height: 1.55; padding-bottom: 44px; }
+    body.light {
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --card: #f8fafc;
+      --card-2: #e2e8f0;
+      --text: #0f172a;
+      --muted: #475569;
+      --primary: #0369a1;
+      --primary-2: #075985;
+      --teal: #0f766e;
+      --green: #15803d;
+      --amber: #b45309;
+      --danger: #dc2626;
+      --border: rgba(15, 23, 42, 0.12);
+    }
 
-    /* Top Bar */
-    .topbar {
-      position: sticky; top: 0; z-index: 50;
-      background: rgba(6, 11, 20, 0.92);
-      backdrop-filter: blur(10px);
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+      font-size: calc(14px * var(--scale));
+      line-height: 1.55;
+      transition: background 0.3s ease, color 0.3s ease;
+      padding-bottom: 60px;
+    }
+
+    @keyframes riseIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+    .reveal.show { opacity: 1; transform: translateY(0); }
+
+    header {
+      position: sticky; top: 0; z-index: 40;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       padding: 12px 16px;
-      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    }
+    .hdr-wrap {
+      max-width: 1060px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
     }
     .brand { display: flex; align-items: center; gap: 10px; }
-    .logo {
+    .mark {
       width: 38px; height: 38px; border-radius: 10px;
-      background: linear-gradient(135deg, var(--blue), var(--accent));
-      display: grid; place-items: center; font-weight: 900; font-size: 18px; color: #fff; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--primary), var(--teal));
+      color: #fff; font-weight: 900; font-size: 19px; display: grid; place-items: center;
+      box-shadow: 0 6px 16px rgba(14, 165, 233, 0.25);
     }
-    .brand-title { font-weight: 800; font-size: 14.5px; }
-    .brand-sub { font-size: 11px; color: var(--muted); }
-    .badge-24 {
-      background: rgba(34, 197, 94, 0.14); color: #4ade80;
-      border: 1px solid rgba(34, 197, 94, 0.35);
-      padding: 5px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; white-space: nowrap;
-    }
+    .b-title { font-weight: 800; font-size: 15px; }
+    .b-sub { font-size: 11.5px; color: var(--muted); }
 
-    .wrap { max-width: 900px; margin: 0 auto; padding: 20px 14px; }
+    .wrap { max-width: 1060px; margin: 0 auto; padding: 20px 16px; }
 
-    /* Hero */
     .hero {
-      background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.35), transparent 60%), var(--surface);
-      border: 1px solid var(--border); border-radius: 18px; padding: 24px 18px; margin-bottom: 20px;
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.16), rgba(20, 184, 166, 0.1)), var(--surface);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 24px 18px; margin-bottom: 18px; animation: riseIn 0.45s ease forwards;
     }
-    .hero-tag {
-      display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
-      color: var(--accent); background: rgba(56, 189, 248, 0.12);
-      border: 1px solid rgba(56, 189, 248, 0.28); padding: 4px 10px; border-radius: 999px; margin-bottom: 10px;
-    }
-    .hero h1 { font-size: clamp(22px, 5vw, 32px); font-weight: 900; margin-bottom: 8px; }
-    .hero p { color: #cbd5e1; font-size: 14px; }
-
-    .quick-actions {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 10px; margin-top: 16px;
-    }
-    .q-btn {
-      text-decoration: none; border: 1px solid var(--border); border-radius: 10px;
-      padding: 10px 12px; font-size: 13px; font-weight: 700; text-align: center;
-      background: var(--card); color: var(--text); cursor: pointer;
-    }
-    .q-btn.primary { background: var(--green); color: #052e16; border: none; font-weight: 800; }
-    .q-btn.map { background: #ffffff; color: #0f172a; border: none; }
+    .hero h1 { font-size: clamp(22px, 4.5vw, 30px); font-weight: 900; margin-bottom: 6px; }
+    .hero p { color: var(--muted); max-width: 720px; }
 
     .stats {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px; margin-top: 16px;
     }
-    .stat-box {
-      background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 11px; text-align: center;
+    .stat {
+      background: var(--card); border: 1px solid var(--border); border-radius: 11px;
+      padding: 11px; transition: transform 0.2s ease, background 0.2s ease;
     }
-    .stat-val { font-size: 15px; font-weight: 800; color: var(--accent); }
-    .stat-lbl { font-size: 11px; color: var(--muted); }
+    .stat:hover { transform: translateY(-2px); background: var(--card-2); }
+    .stat-v { font-size: 16px; font-weight: 800; color: var(--primary); }
+    .stat-l { font-size: 11px; color: var(--muted); }
 
-    .sec-head { margin: 24px 0 12px; }
+    .sec-head { margin: 24px 0 10px; display: flex; justify-content: space-between; align-items: end; flex-wrap: wrap; gap: 8px; }
     .sec-head h2 { font-size: 18px; font-weight: 800; }
     .sec-head p { font-size: 12.5px; color: var(--muted); }
 
     .panel {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px; margin-bottom: 18px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: var(--pad); margin-bottom: 18px; transition: padding 0.25s ease;
     }
 
-    /* Quick Chips */
-    .chips-label { font-size: 12px; color: var(--muted); margin-bottom: 8px; font-weight: 600; }
-    .chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
-    .chip {
-      background: var(--card); border: 1px solid rgba(56, 189, 248, 0.3); color: #e0f2fe;
-      padding: 5px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; cursor: pointer;
-    }
-    .chip:hover { background: rgba(56, 189, 248, 0.16); }
+    .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .grid-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); gap: 10px; }
+    .full-span { grid-column: 1 / -1; }
 
-    .form-row { display: grid; grid-template-columns: 1fr 85px auto; gap: 9px; margin-bottom: 12px; }
-    .slot-row { display: grid; grid-template-columns: 1fr 150px auto; gap: 9px; margin-bottom: 12px; }
-    .refill-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 9px; align-items: end; }
-    @media (max-width: 600px) {
-      .form-row, .slot-row, .refill-row { grid-template-columns: 1fr; }
+    label { display: block; font-size: 11.5px; color: var(--muted); font-weight: 700; margin-bottom: 4px; }
+    input, select, textarea {
+      width: 100%; background: var(--card); color: var(--text); border: 1px solid var(--border);
+      border-radius: 9px; padding: 9px 11px; font-size: 13px; outline: none; transition: border-color 0.2s ease;
     }
-
-    input, select {
-      width: 100%; padding: 10px 12px; border-radius: 10px;
-      border: 1px solid rgba(148, 163, 184, 0.26); background: var(--card); color: var(--text); font-size: 13px;
-    }
-    label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 5px; font-weight: 600; }
+    input:focus, select:focus, textarea:focus { border-color: var(--primary); }
 
     .btn {
-      border: none; border-radius: 10px; padding: 10px 14px; font-weight: 700; font-size: 13px;
-      cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      border: 1px solid var(--border); background: var(--card); color: var(--text);
+      border-radius: 9px; padding: 9px 13px; font-size: 12.5px; font-weight: 700;
+      cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      transition: transform 0.15s ease, background 0.2s ease;
     }
-    .btn-blue { background: var(--blue); color: #fff; }
-    .btn-wa { background: var(--green); color: #052e16; font-weight: 800; }
-    .btn-copy { background: var(--card); color: var(--text); border: 1px solid var(--border); }
-    .btn-del { background: transparent; color: #f87171; border: 1px solid rgba(248, 113, 113, 0.3); padding: 4px 8px; font-size: 11.5px; border-radius: 7px; cursor: pointer; }
+    .btn:hover { background: var(--card-2); transform: translateY(-1px); }
+    .btn:active { transform: scale(0.98); }
+    .btn-pri { background: var(--primary); border-color: var(--primary); color: #fff; }
+    .btn-pri:hover { background: var(--primary-2); }
+    .btn-ok { background: var(--green); border-color: var(--green); color: #052e16; font-weight: 800; }
+    .btn-warn { background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.4); color: var(--amber); }
+    .btn-del { background: rgba(239, 68, 68, 0.12); border-color: rgba(239, 68, 68, 0.35); color: #fca5a5; }
+    .btn-sm { padding: 5px 9px; font-size: 11.5px; }
 
-    .list-meta {
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: 12px; color: var(--muted); margin: 8px 0 10px; padding-top: 8px; border-top: 1px solid var(--border);
+    .preview-box {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--card); border: 1px dashed var(--border); border-radius: 10px; padding: 10px;
     }
-    .item-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
-    .row-item {
-      display: flex; justify-content: space-between; align-items: center; gap: 10px;
-      background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 9px 12px; font-size: 13px;
+    .preview-thumb {
+      width: 58px; height: 58px; border-radius: 8px; object-fit: cover;
+      background: var(--surface); border: 1px solid var(--border);
     }
-    .empty { text-align: center; color: var(--muted); font-size: 12.5px; padding: 12px 0; }
 
-    .action-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
-    @media (max-width: 500px) { .action-bar { grid-template-columns: 1fr; } }
+    /* Catalog Cards */
+    .catalog-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(245px, 1fr)); gap: 14px;
+    }
+    .prod-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 13px;
+      overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      animation: riseIn 0.3s ease forwards;
+    }
+    .prod-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22); }
+    .prod-img {
+      width: 100%; height: 150px; object-fit: cover; background: var(--surface);
+      display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 12px;
+    }
+    .prod-body { padding: 12px; flex: 1; }
+    .prod-top { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-bottom: 6px; }
+    .cat-tag {
+      font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 999px;
+      background: rgba(14, 165, 233, 0.15); color: var(--primary);
+    }
+    .stock-tag {
+      font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 999px;
+    }
+    .in-stock { background: rgba(34, 197, 94, 0.15); color: #4ade80; }
+    .out-stock { background: rgba(239, 68, 68, 0.15); color: #fca5a5; }
+    .prod-name { font-size: 15px; font-weight: 800; margin-bottom: 3px; }
+    .prod-note { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+    .price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 8px; }
+    .price-now { font-size: 17px; font-weight: 900; color: var(--teal); }
+    .price-mrp { font-size: 12px; color: var(--muted); text-decoration: line-through; }
+    .offer-badge { font-size: 11px; font-weight: 700; color: var(--amber); }
+
+    .prod-foot {
+      padding: 10px 12px; border-top: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 7px; background: color-mix(in srgb, var(--surface) 60%, transparent);
+    }
 
     .toast {
-      margin-top: 10px; padding: 10px 12px; border-radius: 10px; font-size: 12.5px;
-      background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3); color: #e0f2fe; display: none;
+      margin-top: 10px; padding: 10px 12px; border-radius: 9px; font-size: 12.5px;
+      background: rgba(14, 165, 233, 0.12); border: 1px solid rgba(14, 165, 233, 0.3); display: none;
     }
-
-    /* Info & FAQ */
-    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
-    .info-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; font-size: 13px; }
-    .info-card strong { display: block; color: var(--accent); margin-bottom: 4px; font-size: 12px; text-transform: uppercase; }
+    .empty { text-align: center; color: var(--muted); padding: 24px; border: 1px dashed var(--border); border-radius: 12px; }
 
     details {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 15px; margin-bottom: 9px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 11px;
+      padding: 12px 15px; margin-bottom: 9px;
     }
     summary { font-weight: 700; font-size: 13.5px; cursor: pointer; list-style: none; }
-    details p { margin-top: 7px; font-size: 12.5px; color: #cbd5e1; }
+    details p { margin-top: 7px; font-size: 12.5px; color: var(--muted); }
 
-    .notice {
-      margin-top: 20px; padding: 11px 14px; border-radius: 10px;
-      background: rgba(250, 204, 21, 0.08); border: 1px solid rgba(250, 204, 21, 0.25);
-      color: #fde68a; font-size: 11.5px;
+    .disclaimer {
+      margin-top: 18px; padding: 11px 14px; border-radius: 10px; font-size: 11.5px;
+      background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.25); color: var(--muted);
     }
-    footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 26px; }
+    footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 28px; }
   </style>
 </head>
 <body>
 
-  <header class="topbar">
-    <div class="brand">
-      <div class="logo">+</div>
-      <div>
-        <div class="brand-title">SR7 MEDICAL HALL</div>
-        <div class="brand-sub">Bypass Rd, Gilan Para, Dumka</div>
+  <!-- Top Header -->
+  <header>
+    <div class="hdr-wrap">
+      <div class="brand">
+        <div class="mark">+</div>
+        <div>
+          <div class="b-title">SR7 MEDICAL HALL</div>
+          <div class="b-sub">Bypass Rd, Gilan Para, Dumka • Open 24 Hours</div>
+        </div>
+      </div>
+      <div class="row">
+        <button class="btn btn-sm" type="button" onclick="toggleTheme()">Light / Dark</button>
+        <button class="btn btn-sm" type="button" onclick="setScale(0.95)">A-</button>
+        <button class="btn btn-sm" type="button" onclick="setScale(1)">A</button>
+        <button class="btn btn-sm" type="button" onclick="setScale(1.1)">A+</button>
+        <button class="btn btn-sm" type="button" onclick="togglePad()">Compact</button>
+        <a class="btn btn-sm btn-ok" href="https://wa.me/918210045180?text=Hello%20SR7%20Medical%20Hall%2C%20I%20want%20to%20enquire." target="_blank">WhatsApp</a>
+        <a class="btn btn-sm btn-pri" href="https://www.google.com/maps/search/?api=1&query=SR7+MEDICAL+HALL+Bypass+Rd+Gilan+Para+Dumka+Jharkhand+814101" target="_blank">Maps</a>
       </div>
     </div>
-    <div class="badge-24">OPEN 24 HOURS</div>
   </header>
 
   <main class="wrap">
-    <!-- Hero & Quick Actions -->
+    <!-- Hero -->
     <section class="hero">
-      <span class="hero-tag">COMPLETE CUSTOMER UTILITY DESK</span>
-      <h1>SR7 Medical Hall — Smart Pharmacy Desk</h1>
+      <h1>SR7 Medical Hall — Store Catalog & Desk</h1>
       <p>
-        ग्राहक यहाँ से अपनी आइटम लिस्ट बना सकते हैं, टाइम-स्लॉट नोट्स रख सकते हैं, रीफ़िल तारीख निकाल सकते हैं, और सीधे WhatsApp या Directions से जुड़ सकते हैं।
+        स्टोर के मालिक के लिए अपना ख़ुद का कैटलॉग बनाने, फ़ोटो और प्राइस के साथ आइटम/दवाई लिस्ट करने, स्टॉक/ऑफ़र बदलने, और ग्राहकों के लिए सीधे WhatsApp इंक्वायरी भेजने का डैशबोर्ड।
       </p>
-
-      <div class="quick-actions">
-        <a class="q-btn primary" href="https://wa.me/918210045180?text=Hello%20SR7%20Medical%20Hall%2C%20I%20want%20to%20enquire%20about%20medicine%20availability." target="_blank">
-          WhatsApp Inquiry
-        </a>
-        <a class="q-btn" href="tel:+918210045180">Call: 082100 45180</a>
-        <a class="q-btn map" href="https://www.google.com/maps/search/?api=1&query=SR7+MEDICAL+HALL+Bypass+Rd+Gilan+Para+Dumka+Jharkhand+814101" target="_blank">
-          Google Maps
-        </a>
-        <button class="q-btn" type="button" onclick="copyAddress()">Copy Address</button>
-      </div>
-      <div class="toast" id="addrToast"></div>
-
       <div class="stats">
-        <div class="stat-box">
-          <div class="stat-val">24x7</div>
-          <div class="stat-lbl">Open Round-the-Clock</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-val">5.0 ★</div>
-          <div class="stat-lbl">Google Rating</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-val">34.9K+</div>
-          <div class="stat-lbl">Instagram Reach</div>
-        </div>
+        <div class="stat"><div class="stat-v" id="statTotal">0</div><div class="stat-l">Total Listed Items</div></div>
+        <div class="stat"><div class="stat-v" id="statInStock">0</div><div class="stat-l">In Stock</div></div>
+        <div class="stat"><div class="stat-v" id="statOutStock">0</div><div class="stat-l">Out of Stock</div></div>
+        <div class="stat"><div class="stat-v">24x7 • 5.0★</div><div class="stat-l">Bypass Rd, Dumka</div></div>
       </div>
     </section>
 
-    <!-- Feature 1: Smart Medicine / Item List Builder + Chips -->
-    <div class="sec-head">
-      <h2>1. Smart Medicine & Item Inquiry List</h2>
-      <p>Quick tags पर टैप करें या खुद नाम लिखें—पूरी लिस्ट WhatsApp या Copy के लिए तैयार हो जाएगी।</p>
+    <!-- Owner Catalog Manager -->
+    <div class="sec-head reveal">
+      <div>
+        <h2>1. Owner Catalog Manager (फ़ोटो + प्राइस के साथ आइटम जोड़ें/एडिट करें)</h2>
+        <p>मालिक यहाँ किसी भी आइटम/दवाई का नाम, प्राइस, MRP, ऑफ़र, कैटेगरी, स्टॉक, और फ़ोटो (Upload या Image Link) डाल सकते हैं।</p>
+      </div>
+      <div class="row">
+        <button class="btn btn-sm btn-warn" type="button" onclick="loadSampleItems()">Load Sample Items</button>
+        <button class="btn btn-sm" type="button" onclick="exportJson()">Export JSON</button>
+        <label class="btn btn-sm" style="margin:0; cursor:pointer;">
+          Import JSON <input type="file" accept=".json" style="display:none;" onchange="importJson(event)" />
+        </label>
+        <button class="btn btn-sm btn-del" type="button" onclick="clearAllCatalog()">Delete All</button>
+      </div>
     </div>
-    <section class="panel">
-      <div class="chips-label">Quick Add Essentials (1 Tap):</div>
-      <div class="chips">
-        <button class="chip" type="button" onclick="quickAdd('ORS Pack')">+ ORS Pack</button>
-        <button class="chip" type="button" onclick="quickAdd('Bandage / Gauze')">+ Bandage / Gauze</button>
-        <button class="chip" type="button" onclick="quickAdd('Thermometer')">+ Thermometer</button>
-        <button class="chip" type="button" onclick="quickAdd('Cotton Roll')">+ Cotton Roll</button>
-        <button class="chip" type="button" onclick="quickAdd('Antiseptic Liquid')">+ Antiseptic Liquid</button>
-        <button class="chip" type="button" onclick="quickAdd('BP / Sugar Strips')">+ BP / Sugar Strips</button>
-      </div>
 
-      <div class="form-row">
-        <input type="text" id="medName" placeholder="दवाई या आइटम का नाम लिखें..." />
-        <input type="number" id="medQty" min="1" value="1" aria-label="Quantity" />
-        <button class="btn btn-blue" type="button" onclick="addMed()">+ Add</button>
-      </div>
-
-      <div class="list-meta">
-        <span id="itemSummary">Items: 0 | Total Qty: 0</span>
-        <button class="btn-del" type="button" onclick="clearMeds()">Clear All</button>
-      </div>
-
-      <ul class="item-list" id="medList"></ul>
-
-      <div class="action-bar">
-        <button class="btn btn-wa" type="button" onclick="sendListWhatsApp()">Send List on WhatsApp</button>
-        <button class="btn btn-copy" type="button" onclick="copyListText()">Copy List Summary</button>
-      </div>
-      <div class="toast" id="listToast"></div>
-    </section>
-
-    <!-- Feature 2: Time-Slot Schedule Notes (Morning / Afternoon / Evening / Night) -->
-    <div class="sec-head">
-      <h2>2. Daily Time-Slot Reminder Notes</h2>
-      <p>ग्राहक अपने हिसाब से दिन के किस समय क्या याद रखना है, उसका छोटा नोट यहाँ रख सकते हैं।</p>
-    </div>
-    <section class="panel">
-      <div class="slot-row">
-        <input type="text" id="slotNote" placeholder="नोट लिखें (e.g. Check stock / Refill note)" />
-        <select id="slotTime">
-          <option value="Morning (Subah)">Morning (Subah)</option>
-          <option value="Afternoon (Dopahar)">Afternoon (Dopahar)</option>
-          <option value="Evening (Shaam)">Evening (Shaam)</option>
-          <option value="Night (Raat)">Night (Raat)</option>
-        </select>
-        <button class="btn btn-blue" type="button" onclick="addSlot()">Save Note</button>
-      </div>
-      <ul class="item-list" id="slotList"></ul>
-    </section>
-
-    <!-- Feature 3: Refill Date Calculator -->
-    <div class="sec-head">
-      <h2>3. Stock Refill Date Calculator</h2>
-      <p>पिछली तारीख और कितने दिन का स्टॉक है चुनकर अगली रिफ़िल तारीख देखें।</p>
-    </div>
-    <section class="panel">
-      <div class="refill-row">
+    <section class="panel reveal">
+      <div class="grid-form">
         <div>
-          <label for="refillStart">Start / Purchase Date</label>
-          <input type="date" id="refillStart" />
+          <label for="pName">Item / Medicine Name *</label>
+          <input type="text" id="pName" placeholder="e.g. Digital Thermometer" />
         </div>
         <div>
-          <label for="refillDays">Stock Duration</label>
-          <select id="refillDays">
-            <option value="7">7 Days</option>
-            <option value="15">15 Days</option>
-            <option value="30" selected>30 Days</option>
+          <label for="pPrice">Selling Price (₹) *</label>
+          <input type="number" id="pPrice" min="0" step="0.5" placeholder="e.g. 180" />
+        </div>
+        <div>
+          <label for="pMrp">MRP (₹ Optional)</label>
+          <input type="number" id="pMrp" min="0" step="0.5" placeholder="e.g. 220" />
+        </div>
+        <div>
+          <label for="pOffer">Offer / Pack Tag</label>
+          <input type="text" id="pOffer" placeholder="e.g. 10% Off / Strip of 10" />
+        </div>
+        <div>
+          <label for="pCat">Category</label>
+          <select id="pCat">
+            <option value="General Store">General Store</option>
+            <option value="First Aid">First Aid</option>
+            <option value="Health Care">Health Care</option>
+            <option value="Baby & Personal Care">Baby & Personal Care</option>
+            <option value="Wellness & Essentials">Wellness & Essentials</option>
           </select>
         </div>
-        <button class="btn btn-blue" type="button" onclick="calcRefill()">Calculate</button>
+        <div>
+          <label for="pStock">Stock Status</label>
+          <select id="pStock">
+            <option value="In Stock">In Stock</option>
+            <option value="Out of Stock">Out of Stock</option>
+          </select>
+        </div>
+        <div>
+          <label for="pPhotoFile">Upload Photo (Phone / PC)</label>
+          <input type="file" id="pPhotoFile" accept="image/*" onchange="handleFileUpload(event)" />
+        </div>
+        <div>
+          <label for="pPhotoUrl">OR Photo Image URL</label>
+          <input type="text" id="pPhotoUrl" placeholder="https://..." oninput="handleUrlInput()" />
+        </div>
+        <div class="full-span">
+          <label for="pNote">Short Description / Pack Details</label>
+          <input type="text" id="pNote" placeholder="e.g. Pack details, usage note or storage info..." />
+        </div>
+        <div class="full-span">
+          <div class="preview-box">
+            <img id="imgPreview" class="preview-thumb" src="" alt="Preview" style="display:none;" />
+            <div id="previewText" style="font-size:12px; color:var(--muted);">फ़ोटो प्रीव्यू यहाँ दिखेगा (Upload या URL डालें)।</div>
+          </div>
+        </div>
+        <div class="full-span row">
+          <button class="btn btn-pri" type="button" id="saveBtn" onclick="saveProduct()">+ Save Item to Catalog</button>
+          <button class="btn" type="button" id="cancelEditBtn" style="display:none;" onclick="resetForm()">Cancel Edit</button>
+        </div>
       </div>
-      <div class="toast" id="refillToast"></div>
+      <div class="toast" id="ownerToast"></div>
     </section>
 
-    <!-- Feature 4: Store Info & Quick FAQ -->
-    <div class="sec-head">
-      <h2>4. Store Info & Customer FAQ</h2>
-      <p>पता, 24-घंटे समय, और आम सवालों के साफ जवाब।</p>
+    <!-- Search, Filter, Sort & Catalog Display -->
+    <div class="sec-head reveal">
+      <div>
+        <h2>2. Live Store Catalog</h2>
+        <p>नाम या नोट खोजें, कैटेगरी/स्टॉक फ़िल्टर करें, प्राइस/नाम से सॉर्ट करें, या सीधे WhatsApp पर इंक्वायरी भेजें।</p>
+      </div>
     </div>
-    <section class="panel">
-      <div class="info-grid">
-        <div class="info-card">
-          <strong>Address</strong>
-          Bypass Rd, Gilan Para, Dumka, Jharkhand 814101
+
+    <section class="panel reveal">
+      <div class="grid-form" style="margin-bottom: 14px;">
+        <div>
+          <label for="searchBox">Search Item</label>
+          <input type="text" id="searchBox" placeholder="नाम या विवरण खोजें..." oninput="renderCatalog()" />
         </div>
-        <div class="info-card">
-          <strong>Operating Hours</strong>
-          Open 24 Hours (Round-the-Clock)
+        <div>
+          <label for="catFilter">Filter Category</label>
+          <select id="catFilter" onchange="renderCatalog()">
+            <option value="ALL">All Categories</option>
+            <option value="General Store">General Store</option>
+            <option value="First Aid">First Aid</option>
+            <option value="Health Care">Health Care</option>
+            <option value="Baby & Personal Care">Baby & Personal Care</option>
+            <option value="Wellness & Essentials">Wellness & Essentials</option>
+          </select>
         </div>
-        <div class="info-card">
-          <strong>Contact & Social</strong>
-          Phone/WA: 082100 45180 &bull; IG: @sr7_medical_hall
+        <div>
+          <label for="stockFilter">Filter Stock</label>
+          <select id="stockFilter" onchange="renderCatalog()">
+            <option value="ALL">All Stock</option>
+            <option value="In Stock">In Stock Only</option>
+            <option value="Out of Stock">Out of Stock Only</option>
+          </select>
+        </div>
+        <div>
+          <label for="sortBy">Sort By</label>
+          <select id="sortBy" onchange="renderCatalog()">
+            <option value="newest">Newest First</option>
+            <option value="name-asc">Name (A–Z)</option>
+            <option value="price-asc">Price (Low to High)</option>
+            <option value="price-desc">Price (High to Low)</option>
+          </select>
         </div>
       </div>
+
+      <div class="catalog-grid" id="catalogGrid"></div>
     </section>
 
-    <details open>
-      <summary>क्या मैं पर्ची (Prescription) की फ़ोटो WhatsApp पर भेज सकता हूँ?</summary>
-      <p>हाँ, WhatsApp Inquiry बटन दबाकर आप अपनी पर्ची या आइटम लिस्ट भेजकर उपलब्धता पूछ सकते हैं।</p>
+    <!-- Store Info & FAQ -->
+    <div class="sec-head reveal">
+      <div><h2>3. Store Info & FAQ</h2></div>
+    </div>
+    <details class="reveal" open>
+      <summary>स्टोर के मालिक अपने आइटम, फ़ोटो और प्राइस कैसे बदल सकते हैं?</summary>
+      <p>ऊपर Owner Catalog Manager में आइटम का नाम, प्राइस, फ़ोटो और स्टॉक भरकर Save करें। किसी भी कार्ड पर Edit, Stock Toggle या Delete बटन से तुरंत बदलाव किया जा सकता है।</p>
     </details>
-    <details>
-      <summary>क्या मेरी बनाई हुई लिस्ट और नोट्स सेव रहते हैं?</summary>
-      <p>हाँ, इस ब्राउज़र में आपकी आइटम लिस्ट और टाइम-स्लॉट नोट्स लोकल स्टोरेज में सेव रहते हैं जब तक आप उन्हें हटा न दें।</p>
-    </details>
-    <details>
-      <summary>क्या यह वेबसाइट मेडिकल सलाह देती है?</summary>
-      <p>नहीं। यह केवल स्टोर की जानकारी और उपलब्धता पूछताछ के लिए है। किसी भी स्वास्थ्य या खुराक संबंधी निर्णय के लिए योग्य डॉक्टर या फार्मासिस्ट से सलाह लें।</p>
+    <details class="reveal">
+      <summary>क्या यह वेबसाइट मेडिकल सलाह या इलाज देती है?</summary>
+      <p>नहीं। यह केवल स्टोर कैटलॉग, प्राइस/उपलब्धता पूछताछ और संपर्क के लिए है। किसी भी दवाई या खुराक के लिए रजिस्टर्ड डॉक्टर या फार्मासिस्ट से सलाह लें।</p>
     </details>
 
-    <div class="notice">
-      <strong>Disclaimer:</strong> Stock availability, pricing, and order confirmation are handled directly by SR7 Medical Hall. Always follow a qualified doctor's or pharmacist's guidance for medicines and dosages.
+    <div class="disclaimer reveal">
+      <strong>Notice:</strong> Prices, discounts, and stock availability are managed by the store owner and confirmed on WhatsApp or at the counter. Always consult a qualified doctor or pharmacist for medical advice.
     </div>
 
     <footer>
@@ -332,150 +396,283 @@
 
   <script>
     const PHONE = "918210045180";
-    const ADDRESS_TEXT = "SR7 MEDICAL HALL, Bypass Rd, Gilan Para, Dumka, Jharkhand 814101";
+    const STORAGE_KEY = "sr7_owner_catalog_v1";
 
-    let meds = JSON.parse(localStorage.getItem("sr7_meds") || "[]");
-    let slots = JSON.parse(localStorage.getItem("sr7_slots") || "[]");
+    let products = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+    if (!Array.isArray(products)) {
+      products = [];
+    }
 
-    function showToast(id, msg) {
-      const el = document.getElementById(id);
+    let editIndex = -1;
+    let currentPhotoData = "";
+    let compactPad = false;
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("show"); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+    function notify(msg) {
+      const el = document.getElementById("ownerToast");
       el.style.display = "block";
       el.innerHTML = msg;
     }
 
-    function copyAddress() {
-      navigator.clipboard?.writeText(ADDRESS_TEXT);
-      showToast("addrToast", "पता कॉपी हो गया: <strong>" + ADDRESS_TEXT + "</strong>");
+    function toggleTheme() { document.body.classList.toggle("light"); }
+    function setScale(val) { document.documentElement.style.setProperty("--scale", val); }
+    function togglePad() {
+      compactPad = !compactPad;
+      document.documentElement.style.setProperty("--pad", compactPad ? "11px" : "18px");
     }
 
-    function saveMeds() {
-      localStorage.setItem("sr7_meds", JSON.stringify(meds));
-      renderMeds();
+    function handleFileUpload(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement("canvas");
+          const maxW = 500;
+          const ratio = Math.min(1, maxW / img.width);
+          canvas.width = img.width * ratio;
+          canvas.height = img.height * ratio;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          currentPhotoData = canvas.toDataURL("image/jpeg", 0.72);
+          document.getElementById("pPhotoUrl").value = "";
+          updatePreview(currentPhotoData, `Uploaded: ${file.name}`);
+        };
+        img.src = ev.target.result;
+      };
+      reader.readAsDataURL(file);
     }
 
-    function quickAdd(name) {
-      const existing = meds.find(m => m.name.toLowerCase() === name.toLowerCase());
-      if (existing) {
-        existing.qty += 1;
+    function handleUrlInput() {
+      const url = document.getElementById("pPhotoUrl").value.trim();
+      currentPhotoData = url;
+      updatePreview(url, url ? "Image URL applied" : "फ़ोटो प्रीव्यू यहाँ दिखेगा");
+    }
+ function updatePreview(src, label) {
+      const img = document.getElementById("imgPreview");
+      const txt = document.getElementById("previewText");
+      if (src) {
+        img.src = src;
+        img.style.display = "block";
       } else {
-        meds.push({ name, qty: 1 });
+        img.style.display = "none";
       }
-      saveMeds();
+      txt.textContent = label;
     }
 
-    function addMed() {
-      const inp = document.getElementById("medName");
-      const qtyInp = document.getElementById("medQty");
-      const name = inp.value.trim();
-      const qty = Math.max(1, parseInt(qtyInp.value, 10) || 1);
-      if (!name) { inp.focus(); return; }
-      meds.push({ name, qty });
-      inp.value = "";
-      qtyInp.value = "1";
-      saveMeds();
+    function saveCatalog() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+      updateStats();
+      renderCatalog();
     }
 
-    function removeMed(i) {
-      meds.splice(i, 1);
-      saveMeds();
-    }
+    function saveProduct() {
+      const name = document.getElementById("pName").value.trim();
+      const price = parseFloat(document.getElementById("pPrice").value);
+      const mrpVal = document.getElementById("pMrp").value.trim();
+      const mrp = mrpVal ? parseFloat(mrpVal) : null;
+      const offer = document.getElementById("pOffer").value.trim();
+      const category = document.getElementById("pCat").value;
+      const stock = document.getElementById("pStock").value;
+      const note = document.getElementById("pNote").value.trim();
 
-    function clearMeds() {
-      meds = [];
-      saveMeds();
-    }
-
-    function renderMeds() {
-      const ul = document.getElementById("medList");
-      const sumEl = document.getElementById("itemSummary");
-      const totalQty = meds.reduce((acc, item) => acc + item.qty, 0);
-      sumEl.textContent = `Items: ${meds.length} | Total Qty: ${totalQty}`;
-
-      ul.innerHTML = "";
-      if (meds.length === 0) {
-        ul.innerHTML = '<li class="empty">अभी कोई आइटम नहीं जोड़ा गया है।</li>';
+      if (!name || isNaN(price)) {
+        notify("कृपया कम से कम आइटम का नाम और प्राइस (₹) भरें।");
         return;
       }
-      meds.forEach((m, i) => {
-        const li = document.createElement("li");
-        li.className = "row-item";
-        li.innerHTML = `<span><strong>${m.name}</strong> &times; ${m.qty}</span><button class="btn-del" type="button" onclick="removeMed(${i})">Remove</button>`;
-        ul.appendChild(li);
+
+      const itemObj = {
+        name,
+        price,
+        mrp,
+        offer,
+        category,
+        stock,
+        note,
+        photo: currentPhotoData,
+        updatedAt: Date.now()
+      };
+
+      if (editIndex >= 0 && products[editIndex]) {
+        products[editIndex] = itemObj;
+        notify(`<strong>${name}</strong> अपडेट हो गया है।`);
+      } else {
+        products.unshift(itemObj);
+        notify(`<strong>${name}</strong> कैटलॉग में जुड़ गया है।`);
+      }
+
+      saveCatalog();
+      resetForm();
+    }
+
+    function editProduct(index) {
+      const p = products[index];
+      if (!p) return;
+      editIndex = index;
+      document.getElementById("pName").value = p.name;
+      document.getElementById("pPrice").value = p.price;
+      document.getElementById("pMrp").value = p.mrp || "";
+      document.getElementById("pOffer").value = p.offer || "";
+      document.getElementById("pCat").value = p.category;
+      document.getElementById("pStock").value = p.stock;
+      document.getElementById("pNote").value = p.note || "";
+      currentPhotoData = p.photo || "";
+      document.getElementById("pPhotoUrl").value = p.photo && p.photo.startsWith("http") ? p.photo : "";
+      updatePreview(currentPhotoData, `Editing: ${p.name}`);
+      document.getElementById("saveBtn").textContent = "Update Item";
+      document.getElementById("cancelEditBtn").style.display = "inline-flex";
+      window.scrollTo({ top: 180, behavior: "smooth" });
+    }
+
+    function resetForm() {
+      editIndex = -1;
+      currentPhotoData = "";
+      ["pName", "pPrice", "pMrp", "pOffer", "pNote", "pPhotoUrl", "pPhotoFile"].forEach(id => {
+        document.getElementById(id).value = "";
+      });
+      document.getElementById("pCat").value = "General Store";
+      document.getElementById("pStock").value = "In Stock";
+      updatePreview("", "फ़ोटो प्रीव्यू यहाँ दिखेगा (Upload या URL डालें)।");
+      document.getElementById("saveBtn").textContent = "+ Save Item to Catalog";
+      document.getElementById("cancelEditBtn").style.display = "none";
+    }
+
+    function toggleStock(index) {
+      if (!products[index]) return;
+      products[index].stock = products[index].stock === "In Stock" ? "Out of Stock" : "In Stock";
+      saveCatalog();
+    }
+
+    function deleteProduct(index) {
+      if (!products[index]) return;
+      products.splice(index, 1);
+      saveCatalog();
+    }
+
+    function clearAllCatalog() {
+      products = [];
+      saveCatalog();
+      notify("सभी कैटलॉग आइटम हटा दिए गए हैं।");
+    }
+
+    function loadSampleItems() {
+      const samples = [
+        { name: "Digital Thermometer", price: 180, mrp: 220, offer: "Fast Reading", category: "Health Care", stock: "In Stock", note: "LCD display with beep alert", photo: "", updatedAt: Date.now() },
+        { name: "Sterile Bandage Roll", price: 35, mrp: 40, offer: "First Aid Pack", category: "First Aid", stock: "In Stock", note: "6cm x 4m standard roll", photo: "", updatedAt: Date.now() - 1000 },
+        { name: "ORS Hydration Pack", price: 22, mrp: 25, offer: "WHO Formula", category: "Wellness & Essentials", stock: "In Stock", note: "21.8g sachet", photo: "", updatedAt: Date.now() - 2000 },
+        { name: "Hand Sanitizer 200ml", price: 95, mrp: 110, offer: "Flip Cap", category: "Baby & Personal Care", stock: "Out of Stock", note: "Personal hygiene bottle", photo: "", updatedAt: Date.now() - 3000 }
+      ];
+      products = [...samples, ...products];
+      saveCatalog();
+      notify("सैंपल आइटम्स लोड हो गए हैं। आप इन्हें एडिट या डिलीट कर सकते हैं।");
+    }
+
+    function updateStats() {
+      document.getElementById("statTotal").textContent = products.length;
+      document.getElementById("statInStock").textContent = products.filter(p => p.stock === "In Stock").length;
+      document.getElementById("statOutStock").textContent = products.filter(p => p.stock !== "In Stock").length;
+    }
+
+    function renderCatalog() {
+      const grid = document.getElementById("catalogGrid");
+      const q = document.getElementById("searchBox").value.trim().toLowerCase();
+      const cat = document.getElementById("catFilter").value;
+      const st = document.getElementById("stockFilter").value;
+      const sort = document.getElementById("sortBy").value;
+
+      let list = products.map((p, idx) => ({ ...p, idx })).filter(p => {
+        const mSearch = !q || p.name.toLowerCase().includes(q) || (p.note && p.note.toLowerCase().includes(q));
+        const mCat = cat === "ALL" || p.category === cat;
+        const mStock = st === "ALL" || p.stock === st;
+        return mSearch && mCat && mStock;
+      });
+
+      if (sort === "name-asc") list.sort((a, b) => a.name.localeCompare(b.name));
+      else if (sort === "price-asc") list.sort((a, b) => a.price - b.price);
+      else if (sort === "price-desc") list.sort((a, b) => b.price - a.price);
+      else list.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+
+      grid.innerHTML = "";
+      if (list.length === 0) {
+        grid.innerHTML = '<div class="empty" style="grid-column:1/-1;">कोई आइटम नहीं मिला। ऊपर Owner Catalog Manager में नया आइटम जोड़ें या Load Sample Items दबाएं।</div>';
+        return;
+      }
+list.forEach(p => {
+        const waText = encodeURIComponent(`Namaste SR7 Medical Hall, I want to enquire about "${p.name}" (Listed Price: ₹${p.price}).`);
+        const imgHtml = p.photo
+          ? `<img class="prod-img" src="${p.photo}" alt="${p.name}" />`
+          : `<div class="prod-img">No Photo Added</div>`;
+        const mrpHtml = p.mrp && p.mrp > p.price ? `<span class="price-mrp">₹${p.mrp}</span>` : "";
+        const offerHtml = p.offer ? `<div class="offer-badge">${p.offer}</div>` : "";
+        const stockClass = p.stock === "In Stock" ? "in-stock" : "out-stock";
+
+        const card = document.createElement("div");
+        card.className = "prod-card";
+        card.innerHTML = `
+          <div>
+            ${imgHtml}
+            <div class="prod-body">
+              <div class="prod-top">
+                <span class="cat-tag">${p.category}</span>
+                <span class="stock-tag ${stockClass}">${p.stock}</span>
+              </div>
+              <div class="prod-name">${p.name}</div>
+              <div class="prod-note">${p.note || "Store catalog item"}</div>
+              <div class="price-row">
+                <span class="price-now">₹${p.price}</span>
+                ${mrpHtml}
+              </div>
+              ${offerHtml}
+            </div>
+          </div>
+          <div class="prod-foot">
+            <a class="btn btn-sm btn-ok" href="https://wa.me/${PHONE}?text=${waText}" target="_blank">Enquire on WhatsApp</a>
+            <div class="row">
+              <button class="btn btn-sm" style="flex:1;" type="button" onclick="editProduct(${p.idx})">Edit</button>
+              <button class="btn btn-sm" style="flex:1;" type="button" onclick="toggleStock(${p.idx})">Stock</button>
+              <button class="btn btn-sm btn-del" type="button" onclick="deleteProduct(${p.idx})">Del</button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
       });
     }
 
-    function buildSummaryText() {
-      let txt = "Namaste SR7 Medical Hall, here is my inquiry list:\n";
-      if (meds.length === 0) {
-        txt += "- Please check medicine / prescription availability.\n";
-      } else {
-        meds.forEach((m, i) => { txt += `${i + 1}. ${m.name} (Qty: ${m.qty})\n`; });
-      }
-      return txt.trim();
+    function exportJson() {
+      const blob = new Blob([JSON.stringify(products, null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "sr7-catalog-backup.json";
+      a.click();
+      URL.revokeObjectURL(a.href);
     }
 
-    function sendListWhatsApp() {
-      const url = `https://wa.me/${PHONE}?text=${encodeURIComponent(buildSummaryText())}`;
-      window.open(url, "_blank");
+    function importJson(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        try {
+          const parsed = JSON.parse(ev.target.result);
+          if (Array.isArray(parsed)) {
+            products = parsed;
+            saveCatalog();
+            notify("कैटलॉग बैकअप सफलतापूर्वक इंपोर्ट हो गया।");
+          }
+        } catch {
+          notify("अमान्य JSON फ़ाइल।");
+        }
+      };
+      reader.readAsText(file);
     }
 
-    function copyListText() {
-      const txt = buildSummaryText();
-      navigator.clipboard?.writeText(txt);
-      showToast("listToast", "लिस्ट समरी कॉपी हो गई है। आप इसे कहीं भी पेस्ट कर सकते हैं।");
-    }
-
-    function saveSlots() {
-      localStorage.setItem("sr7_slots", JSON.stringify(slots));
-      renderSlots();
-    }
-
-    function addSlot() {
-      const noteInp = document.getElementById("slotNote");
-      const timeSel = document.getElementById("slotTime");
-      const note = noteInp.value.trim();
-      if (!note) { noteInp.focus(); return; }
-      slots.push({ note, time: timeSel.value });
-      noteInp.value = "";
-      saveSlots();
-    }
-
-    function removeSlot(i) {
-      slots.splice(i, 1);
-      saveSlots();
-    }
-
-    function renderSlots() {
-      const ul = document.getElementById("slotList");
-      ul.innerHTML = "";
-      if (slots.length === 0) {
-        ul.innerHTML = '<li class="empty">कोई टाइम-स्लॉट नोट सेव नहीं है।</li>';
-        return;
-      }
-      slots.forEach((s, i) => {
-        const li = document.createElement("li");
-        li.className = "row-item";
-        li.innerHTML = `<span><strong>[${s.time}]</strong> ${s.note}</span><button class="btn-del" type="button" onclick="removeSlot(${i})">Delete</button>`;
-        ul.appendChild(li);
-      });
-    }
-
-    function calcRefill() {
-      const startVal = document.getElementById("refillStart").value;
-      const days = parseInt(document.getElementById("refillDays").value, 10);
-      if (!startVal) {
-        showToast("refillToast", "कृपया तारीख चुनें।");
-        return;
-      }
-      const d = new Date(startVal + "T00:00:00");
-      d.setDate(d.getDate() + days);
-      const formatted = d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
-      showToast("refillToast", `अगली संभावित रिफ़िल तारीख: <strong>${formatted}</strong> (${days} दिन बाद)।`);
-    }
-
-    document.getElementById("refillStart").valueAsDate = new Date();
-    renderMeds();
-    renderSlots();
+    updateStats();
+    renderCatalog();
   </script>
 </body>
 </html>
