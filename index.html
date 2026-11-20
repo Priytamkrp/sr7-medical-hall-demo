@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SR7 Medical Hall | 24 Hours Pharmacy in Dumka</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
+    body { background: #f8fafc; color: #0f172a; line-height: 1.55; }
+
+    /* Top Bar */
+    .topbar {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .brand-left { display: flex; align-items: center; gap: 11px; }
+    .logo-box {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #0284c7, #0ea5e9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(2, 132, 199, 0.25);
+      flex-shrink: 0;
+    }
+    .brand-name { font-size: 15px; font-weight: 800; color: #0f172a; letter-spacing: 0.3px; }
+    .brand-sub { font-size: 11px; color: #64748b; }
+    .open-badge {
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #0369a1 0%, #1d4ed8 100%);
+      color: #ffffff;
+      padding: 36px 20px 42px;
+      text-align: center;
+    }
+    .hero-pill {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      color: #f0f9ff;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+    .hero h1 { font-size: 27px; font-weight: 800; margin-bottom: 10px; }
+    .hero p.tagline {
+      color: #e0f2fe;
+      font-size: 14px;
+      max-width: 520px;
+      margin: 0 auto 22px;
+    }
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .btn {
+      flex: 1 1 200px;
+      text-decoration: none;
+      padding: 13px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      text-align: center;
+      transition: transform 0.15s ease;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-whatsapp {
+      background: #16a34a;
+      color: #ffffff;
+      box-shadow: 0 6px 16px rgba(22, 163, 74, 0.32);
+    }
+    .btn-map {
+      background: #ffffff;
+      color: #0f172a;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.16);
+    }
+
+    /* Trust Strip */
+    .trust-wrap {
+      max-width: 760px;
+      margin: -20px auto 0;
+      padding: 0 16px;
+    }
+    .trust-grid {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px 10px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+    }
+    .trust-val { font-size: 15px; font-weight: 800; color: #0284c7; }
+    .trust-lbl { font-size: 11.5px; color: #475569; margin-top: 2px; }
+
+    /* Container */
+    .container { max-width: 760px; margin: 0 auto; padding: 28px 16px 18px; }
+    .section-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title::before {
+      content: "";
+      width: 4px;
+      height: 18px;
+      background: #0284c7;
+      border-radius: 4px;
+    }
+
+    /* Categories Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+      gap: 14px;
+      margin-bottom: 26px;
+    }
+    .card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 3px 10px rgba(15, 23, 42, 0.04);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .tag {
+      display: inline-block;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #0369a1;
+      background: #e0f2fe;
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      width: fit-content;
+    }
+    .card h3 { font-size: 15px; color: #0f172a; margin-bottom: 6px; }
+    .card p { font-size: 12.5px; color: #475569; margin-bottom: 12px; }
+    .card a {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #15803d;
+      text-decoration: none;
+    }
+
+    /* Info Box */
+    .info-box {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 6px 18px;
+      margin-bottom: 22px;
+      box-shadow: 0 3px 10px rgba(15, 23, 42, 0.04);
+    }
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 11px 0;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 13.5px;
+      gap: 12px;
+    }
+    .info-row:last-child { border-bottom: none; }
+    .label { color: #64748b; font-weight: 700; }
+    .val { color: #0f172a; font-weight: 600; text-align: right; }
+
+    /* Social & Note */
+    .social-card {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 15px 16px;
+      text-align: center;
+      font-size: 13.5px;
+      color: #1e3a8a;
+      margin-bottom: 16px;
+    }
+    .social-card a { color: #1d4ed8; font-weight: 800; text-decoration: none; }
+    .note {
+      font-size: 11.5px;
+      color: #64748b;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+    footer {
+      text-align: center;
+      font-size: 12px;
+      color: #64748b;
+      padding: 6px 16px 26px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="topbar">
+    <div class="brand-left">
+      <div class="logo-box" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <path d="M10 4H14V10H20V14H14V20H10V14H4V10H10V4Z" fill="#ffffff"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-name">SR7 MEDICAL HALL</div>
+        <div class="brand-sub">Bypass Rd, Gilan Para, Dumka</div>
+      </div>
+    </div>
+    <div class="open-badge">Open 24 Hours</div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-pill">PHARMACY &bull; DUMKA</div>
+    <h1>SR7 MEDICAL HALL</h1>
+    <p class="tagline">24 Hours Pharmacy at Bypass Rd, Gilan Para, Dumka — Quick medicine inquiry & store location</p>
+    <div class="cta-group">
+      <a class="btn btn-whatsapp" href="https://wa.me/918210045180?text=Hello%20SR7%20Medical%20Hall%2C%20I%20want%20to%20check%20medicine%20availability." target="_blank">
+        Check Medicine on WhatsApp
+      </a>
+      <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=SR7+MEDICAL+HALL+Bypass+Rd+Gilan+Para+Dumka+Jharkhand+814101" target="_blank">
+        Get Store Directions
+      </a>
+    </div>
+  </header>
+
+  <div class="trust-wrap">
+    <div class="trust-grid">
+      <div>
+        <div class="trust-val">5.0 ★</div>
+        <div class="trust-lbl">Google Rating</div>
+      </div>
+      <div>
+        <div class="trust-val">24 Hours</div>
+        <div class="trust-lbl">Round-the-Clock</div>
+      </div>
+      <div>
+        <div class="trust-val">34.9K+</div>
+        <div class="trust-lbl">Instagram Reach</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <h2 class="section-title">Quick Store Assistance</h2>
+    <div class="grid">
+      <div class="card">
+        <div>
+          <span class="tag">MEDICINES</span>
+          <h3>Medicine Availability</h3>
+          <p>Check stock availability before visiting the store at any hour.</p>
+        </div>
+        <a href="https://wa.me/918210045180?text=Hi%2C%20please%20check%20if%20this%20medicine%20is%20available." target="_blank">Enquire on WhatsApp →</a>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="tag">PRESCRIPTION</span>
+          <h3>Prescription Support</h3>
+          <p>Share prescription details directly on WhatsApp for quick help.</p>
+        </div>
+        <a href="https://wa.me/918210045180?text=Hi%2C%20I%20would%20like%20to%20share%20a%20prescription%20query." target="_blank">Send on WhatsApp →</a>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="tag">ESSENTIALS</span>
+          <h3>Daily Health & Care</h3>
+          <p>Routine pharmacy essentials and healthcare items at Gilan Para.</p>
+        </div>
+        <a href="https://wa.me/918210045180?text=Hi%2C%20I%20want%20to%20enquire%20about%20healthcare%20items." target="_blank">Ask on WhatsApp →</a>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="tag">LOCATION</span>
+          <h3>Bypass Rd, Dumka</h3>
+          <p>Easy road access near Gilan Para, Dumka, Jharkhand 814101.</p>
+        </div>
+        <a href="https://www.google.com/maps/search/?api=1&query=SR7+MEDICAL+HALL+Bypass+Rd+Gilan+Para+Dumka+Jharkhand+814101" target="_blank">Open Google Maps →</a>
+      </div>
+    </div>
+
+    <h2 class="section-title">Store Information</h2>
+    <div class="info-box">
+      <div class="info-row">
+        <span class="label">Store Name</span>
+        <span class="val">SR7 MEDICAL HALL</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Address</span>
+        <span class="val">Bypass Rd, Gilan Para, Dumka, Jharkhand 814101</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Timing</span>
+        <span class="val">Open 24 Hours</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Phone / WhatsApp</span>
+        <span class="val">+91 082100 45180</span>
+      </div>
+    </div>
+
+    <div class="social-card">
+      Follow Pharmacy & Local Updates on Instagram:
+      <a href="https://www.instagram.com/sr7_medical_hall/" target="_blank">@sr7_medical_hall</a>
+    </div>
+
+    <p class="note">
+      This page is for store information, location directions, and availability enquiries only.
+    </p>
+  </main>
+
+  <footer>
+    © 2026 SR7 MEDICAL HALL • Demo Website Designed by PRIYTAM KUMAR
+  </footer>
+
+</body>
+</html>
